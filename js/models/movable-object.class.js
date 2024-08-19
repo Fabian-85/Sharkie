@@ -65,10 +65,10 @@ class MovableObject extends DrawableObject {
         return this.y +this.yUpCorrection > 15;
     }
 
-    
-
     generateRadomNumbers(from, to) {
         return Math.random() * (to - from) + from;
     }
+
+    
 
 }

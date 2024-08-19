@@ -19,6 +19,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.addBubble();
     }
 
     setWorld() {
@@ -33,10 +34,12 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
 
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.enemies);
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.bubbles);
         this.addObjectsToMap(this.level.poissons);
+        this.addObjectsToMap(this.level.enemies);
+       this.addObjectsToMap(this.bubbles); 
+        this.addToMap(this.character);
+         
+         
         this.ctx.translate(-this.camera_x, 0);
 
 
@@ -71,6 +74,15 @@ class World {
             this.checkCollisionsWithBubbleAndCharacter();
             this.checkCollisionsWithBubbleAndEnemy();
         }, 100);
+
+    }
+
+    addBubble() {
+        setInterval(() => {
+             for (let i = 0; i < 5; i++) {
+                this.bubbles.push(new Bubble(this.generateRadomNumbers(this.character.x -400,this.character.x +800) , this.generateRadomNumbers(480,600)));     
+             }
+        }, 3000);
 
     }
 
@@ -175,5 +187,9 @@ class World {
     flipImageBack(object) {
         object.x = object.x * -1;
         this.ctx.restore();
+    }
+
+    generateRadomNumbers(from, to) {
+        return Math.random() * (to - from) + from;
     }
 }
