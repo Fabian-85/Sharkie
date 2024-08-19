@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Luckiest Guy';
+    src: url('./img/5.Font/Luckiest_Guy/LuckiestGuy-Regular.ttf');
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Luckiest Guy", cursive;
+}
+
+canvas {
+    background-color: black;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('./img/7.BackgroundImages/6.jpg');
+    background-size: cover;
+    background-position:  bottom;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+ 
+  
