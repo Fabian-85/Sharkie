@@ -3,8 +3,8 @@ class Coin extends MovableObject {
 
     x = 450;
     y = 395;
-    width = 60;
-    height = 60;
+    width = 40;
+    height = 40;
     IMAGES = [
         '../img/4. Marcadores/1. Coins/1.png',
         '../img/4. Marcadores/1. Coins/2.png',
@@ -17,6 +17,8 @@ class Coin extends MovableObject {
         super().loadImage('../img/4. Marcadores/1. Coins/1.png');
         this.loadImages(this.IMAGES);
         this.animate();
+        this.x = this.generateRadomNumbers(0, 3595);
+        this.y = this.generateRadomNumbers(3, 430);
     }
 
     animate() {

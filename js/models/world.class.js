@@ -9,7 +9,6 @@ class World {
     coinBar = new CoinBar();
     bubbles = [];
     poissons =[new Poisson()];
-    coins =[new Coin()]
     level = level1;
     lastThrowBubbleTime = 0;
     keyboard;
@@ -34,11 +33,11 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
 
+        this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
         this.addObjectsToMap(this.bubbles);
         this.addObjectsToMap(this.poissons);
-        this.addObjectsToMap(this.coins);
         this.ctx.translate(-this.camera_x, 0);
 
 
@@ -127,10 +126,10 @@ class World {
     }
 
     checkCollisionsWithCoins(){
-        for (let i = 0; i < this.coins.length; i++) {
-            const coin = this.coins[i];
+        for (let i = 0; i < this.level.coins.length; i++) {
+            const coin = this.level.coins[i];
             if (this.character.isColliding(coin)) {
-                this.coins.splice(i,1);
+                this.level.coins.splice(i,1);
                 this.character.coinCount++;  
             }
         }
