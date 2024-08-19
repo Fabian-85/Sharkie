@@ -1,7 +1,15 @@
 let enemies = [
-    new PufferFish(),
-    new PufferFish(),
-    new PufferFish(),
+    new PufferFish(generateRadomNumbers(800, 1000)),
+    new PufferFish(generateRadomNumbers(800, 1000)),
+    new PufferFish(generateRadomNumbers(1400, 1800)),
+    new PufferFish(generateRadomNumbers(1400, 1800)),
+    new PufferFish(generateRadomNumbers(1400, 1800)),
+    new PufferFish(generateRadomNumbers(2300,2600)),
+    new PufferFish(generateRadomNumbers(2300,2600)),
+    new PufferFish(generateRadomNumbers(2300,2600)),
+    new PufferFish(generateRadomNumbers(2800,3100)),
+    new PufferFish(generateRadomNumbers(2800,3100)),
+    new PufferFish(generateRadomNumbers(2800,3100)),
     new JellyFish(700),
     new JellyFish(790),
     new JellyFish(1390),
@@ -10,7 +18,7 @@ let enemies = [
     new JellyFish(2876),
     // new DangerousjellyFish(),   
     new Endboss(),
-]
+];
 
 let backgroundImages = [
     new BackgroundObject('img/3. Background/Layers/5. Water/D2.png', -719),
@@ -53,8 +61,10 @@ let backgroundImages = [
     new BackgroundObject('img/3. Background/Layers/3.Fondo 1/D1.png', 6 * 719),
     new BackgroundObject('img/3. Background/Layers/2. Floor/D1.png', 6 * 719),
     new BackgroundObject('img/3. Background/Layers/1. Light/1.png', 6 * 719),
-]
+];
 
+let bubbles = [];
+ 
 let coins =[];
 
 for (let i = 0; i < 50; i++) {
@@ -65,7 +75,13 @@ for (let i = 0; i < 50; i++) {
 let poissons =[];
 
 for (let i = 0; i < 8; i++) {
-   poissons.push(new Poisson());
-    
+   poissons.push(new Poisson());   
 }
-const level1 = new Level(enemies,backgroundImages,poissons,coins);
+
+ 
+const level1 = new Level(enemies,backgroundImages,poissons,coins,bubbles);
+
+
+function generateRadomNumbers(from, to) {
+    return Math.random() * (to - from) + from;
+}

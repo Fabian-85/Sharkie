@@ -7,7 +7,6 @@ class World {
     healthBar = new HealthBar();
     poisonBar = new PoissonBar();
     coinBar = new CoinBar();
-    bubbles = [];
     level = level1;
     lastThrowBubbleTime = 0;
     keyboard;
@@ -24,6 +23,10 @@ class World {
 
     setWorld() {
         this.character.world = this;
+         this.level.enemies.forEach(enemy => {
+            enemy.character =this.character;
+         });
+        
     }
 
     draw() {
@@ -36,7 +39,7 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poissons);
         this.addObjectsToMap(this.level.enemies);
-       this.addObjectsToMap(this.bubbles); 
+       this.addObjectsToMap(this.level.bubbles); 
         this.addToMap(this.character);
          
          
@@ -80,7 +83,7 @@ class World {
     addBubble() {
         setInterval(() => {
              for (let i = 0; i < 5; i++) {
-                this.bubbles.push(new Bubble(this.generateRadomNumbers(this.character.x -400,this.character.x +800) , this.generateRadomNumbers(480,600)));     
+                this.level.bubbles.push(new Bubble(this.generateRadomNumbers(this.character.x -400,this.character.x +800) , this.generateRadomNumbers(480,600)));     
              }
         }, 3000);
 
@@ -100,22 +103,22 @@ class World {
     }
 
     checkCollisionsWithBubbleAndCharacter(){
-        for (let i = 0; i < this.bubbles.length; i++) {
-            const bubble = this.bubbles[i];
+        for (let i = 0; i < this.level.bubbles.length; i++) {
+            const bubble = this.level.bubbles[i];
             if(this.character.isColliding(bubble)){
                 this.character.bubbleCount++;
-                this.bubbles.splice(i,1);
+                this.level.bubbles.splice(i,1);
             }
         }
     }
 
     checkCollisionsWithBubbleAndEnemy(){
-        for (let i = 0; i < this.bubbles.length; i++) {
-            const bubble = this.bubbles[i];
+        for (let i = 0; i < this.level.bubbles.length; i++) {
+            const bubble = this.level.bubbles[i];
             for (let j = 0; j < this.level.enemies.length; j++) {
                 const enemy = this.level.enemies[j];
                 if (enemy.isColliding(bubble)  && bubble.noDammage == false) {
-                    this.bubbles.splice(i,1);
+                    this.level.bubbles.splice(i,1);
                     this.level.enemies[j].hit(bubble.dammage);
                  //   if(enemy.energy == 0){ 
                   //  this.level.enemies.splice(j,1);

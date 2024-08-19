@@ -112,7 +112,8 @@ class Character extends MovableObject {
 
     ];
 
-    speed = 16.5;
+   // speed = 3.5;
+   speed = 12;
     world;
     swimming_sound = new Audio('../audio/swimming.mp3');
 
@@ -211,12 +212,12 @@ class Character extends MovableObject {
             if (this.otherDirection == false) {
                 let bubble = new PoissonBubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-                this.world.bubbles.push(bubble);
+                this.world.level.bubbles.push(bubble);
                 bubble.throwRight();
             } else {
                 let bubble = new PoissonBubble(this.x, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-                this.world.bubbles.push(bubble);
+                this.world.level.bubbles.push(bubble);
                 bubble.throwLeft();
             }
             this.lastThrowBubbleTime = new Date().getTime();
@@ -236,12 +237,12 @@ class Character extends MovableObject {
             if (this.otherDirection == false) {
                 let bubble = new Bubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-                this.world.bubbles.push(bubble);
+                this.world.level.bubbles.push(bubble);
                 bubble.throwRight();
             } else {
                 let bubble = new Bubble(this.x, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-                this.world.bubbles.push(bubble);
+                this.world.level.bubbles.push(bubble);
                 bubble.throwLeft();
             }
             this.lastThrowBubbleTime = new Date().getTime();

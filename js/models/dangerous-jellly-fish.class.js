@@ -1,4 +1,4 @@
-class DangerousjellyFish extends MovableObject {
+class DangerousjellyFish extends Enemy {
 
 
     x = 90;
@@ -42,7 +42,6 @@ class DangerousjellyFish extends MovableObject {
                     this.speed = 2;
                     this.moveUp();
                 }
-               
             } else {
                 this.moveLeft();
             }

@@ -1,4 +1,4 @@
-class PufferFish extends MovableObject {
+class PufferFish extends Enemy {
 
 
     x = 40;
@@ -16,13 +16,15 @@ class PufferFish extends MovableObject {
     IMAGE_DEATH = [
         'img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 3 (can animate by going down to the floor after the Fin Slap attack).png'
     ]
-
-
-    constructor() {
+    
+    firstMove =false;
+    
+    constructor(x) {
         super().loadImage('/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGE_DEATH);
-        this.x = this.generateRadomNumbers(300, 680);
+        this.x =  x;
+        this.y = this.generateRadomNumbers(0, 400);
         this.xLeftCorrection = 5;
         this.xRightCorrection = -10;
         this.yUpCorrection = 5;
@@ -40,7 +42,10 @@ class PufferFish extends MovableObject {
                 }
                
             } else {
+                if(this.x - this.character.x <750 || this.firstMove){ 
                 this.moveLeft();
+                this.firstMove = true;
+            }
             }
         }, 1000 / 60);
 
