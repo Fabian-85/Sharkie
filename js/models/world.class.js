@@ -8,7 +8,6 @@ class World {
     poisonBar = new PoissonBar();
     coinBar = new CoinBar();
     bubbles = [];
-    poissons =[new Poisson()];
     level = level1;
     lastThrowBubbleTime = 0;
     keyboard;
@@ -37,7 +36,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
         this.addObjectsToMap(this.bubbles);
-        this.addObjectsToMap(this.poissons);
+        this.addObjectsToMap(this.level.poissons);
         this.ctx.translate(-this.camera_x, 0);
 
 
@@ -116,10 +115,10 @@ class World {
     }
 
     checkCollisionsWithPoisson(){
-        for (let i = 0; i < this.poissons.length; i++) {
-            const poisson = this.poissons[i];
+        for (let i = 0; i < this.level.poissons.length; i++) {
+            const poisson = this.level.poissons[i];
             if (this.character.isColliding(poisson)) {
-                this.poissons.splice(i,1);
+                this.level.poissons.splice(i,1);
                 this.character.poissonCount++;  
             }
         }

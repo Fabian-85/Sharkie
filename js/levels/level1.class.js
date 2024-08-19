@@ -68,4 +68,11 @@ for (let i = 0; i < 50; i++) {
    coins.push(new Coin());
     
 }
-const level1 = new Level(enemies,backgroundImages,coins);
+
+let poissons =[];
+
+for (let i = 0; i < 8; i++) {
+   poissons.push(new Poisson());
+    
+}
+const level1 = new Level(enemies,backgroundImages,poissons,coins);

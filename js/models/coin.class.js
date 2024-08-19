@@ -16,9 +16,9 @@ class Coin extends MovableObject {
     constructor() {
         super().loadImage('../img/4. Marcadores/1. Coins/1.png');
         this.loadImages(this.IMAGES);
-        this.animate();
         this.x = this.generateRadomNumbers(0, 3595);
         this.y = this.generateRadomNumbers(3, 430);
+        this.animate();
     }
 
     animate() {
