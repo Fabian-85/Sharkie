@@ -1,6 +1,6 @@
 class Endboss extends Enemy {
 
-    x = 3800;
+    x = 5200;
     y = 10;
     width = 500;
     height = 500;

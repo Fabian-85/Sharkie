@@ -17,16 +17,20 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.setCharacterForEnemies();
         this.run();
         this.addBubble();
     }
 
     setWorld() {
         this.character.world = this;
-         this.level.enemies.forEach(enemy => {
+          
+    }
+
+    setCharacterForEnemies(){
+        this.level.enemies.forEach(enemy => {
             enemy.character =this.character;
-         });
-        
+         }); 
     }
 
     draw() {
@@ -117,7 +121,7 @@ class World {
             const bubble = this.level.bubbles[i];
             for (let j = 0; j < this.level.enemies.length; j++) {
                 const enemy = this.level.enemies[j];
-                if (enemy.isColliding(bubble)  && bubble.noDammage == false) {
+                if (enemy.isColliding(bubble)  && bubble.noDammage == false && !enemy.isDead()) {
                     this.level.bubbles.splice(i,1);
                     this.level.enemies[j].hit(bubble.dammage);
                  //   if(enemy.energy == 0){ 

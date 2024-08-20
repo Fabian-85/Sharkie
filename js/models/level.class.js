@@ -4,8 +4,8 @@ class Level {
     backgroundObjects;
     bubbles;
     coins;
-    level_end = 4000;
-    
+    //level_end = 4000;
+    level_end = 5800;
     constructor(enemies, backgroundObjects,poissons,coins,bubbles) {
 
         this.enemies = enemies;

@@ -17,6 +17,7 @@ class PufferFish extends Enemy {
         'img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 3 (can animate by going down to the floor after the Fin Slap attack).png'
     ]
     
+    
     firstMove =false;
     
     constructor(x) {
@@ -29,7 +30,8 @@ class PufferFish extends Enemy {
         this.xRightCorrection = -10;
         this.yUpCorrection = 5;
         this.yBottomCorrection = -25;
-        this.speed = this.generateRadomNumbers(0.15, 0.25);
+        this.speed = this.generateRadomNumbers(0.8, 1.3);
+       
         this.animate();
     }
 

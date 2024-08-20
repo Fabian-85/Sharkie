@@ -6,7 +6,7 @@ class DangerousjellyFish extends Enemy {
     width = 100;
     height = 100;
     energy = 40;
-
+    firstMove = false;
     speed;
     IMAGES_SWIMMING = [
         '../img/2.Enemy/2 Jelly fish/Súper dangerous/Green 1.png',
@@ -15,35 +15,54 @@ class DangerousjellyFish extends Enemy {
         '../img/2.Enemy/2 Jelly fish/Súper dangerous/Green 4.png'
     ];
 
-    IMAGES_DEATH =[
+    IMAGES_DEATH = [
         'img/2.Enemy/2 Jelly fish/Dead/green/g1.png',
         'img/2.Enemy/2 Jelly fish/Dead/green/g2.png',
         'img/2.Enemy/2 Jelly fish/Dead/green/g3.png',
         'img/2.Enemy/2 Jelly fish/Dead/green/g4.png',
     ];
-    
 
-    constructor() {
-        super().loadImage('/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
+
+    constructor(x = 300,) {
+        super().loadImage(this.IMAGES_SWIMMING[0]);
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_DEATH);
-        this.x = this.generateRadomNumbers(300,680);
-        this.speed = this.generateRadomNumbers(0.15,0.25);
+        this.x = x;
+        this.x = this.generateRadomNumbers(3800,5000);
+        this.y =this.generateRadomNumbers(0,370), 
+        this.speed =1;
         this.yUpCorrection = 5;
         this.yBottomCorrection = -5;
         this.animate();
     }
- 
 
-     animate() {
+
+    animate() {
         setInterval(() => {
             if (this.isDead()) {
-                if(this.isAboveTheBottomBoundary()){
+             
                     this.speed = 2;
                     this.moveUp();
-                }
+                
             } else {
-                this.moveLeft();
+                if(this.x - this.character.x <1000 || this.firstMove){ 
+                    this.firstMove = true;
+                if (this.x > this.character.x + this.character.xLeftCorrection) {
+                  this.moveLeft();
+                } else if (this.x   < this.character.x + this.character.xLeftCorrection) {
+                    this.moveRight();
+                }
+
+                if (this.y > this.character.y + this.character.yUpCorrection ) {
+                   this.moveUp();
+                } else if (this.y   < this.character.y + this.character.yUpCorrection) {
+                    this.moveDown();
+                }
+
+            }
+                
+
+                
             }
         }, 1000 / 60);
 
@@ -56,6 +75,6 @@ class DangerousjellyFish extends Enemy {
         }, 200);
 
     }
-     
-     
+
+
 }

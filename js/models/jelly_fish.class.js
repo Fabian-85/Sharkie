@@ -37,11 +37,9 @@ class JellyFish extends Enemy {
 
     animate() {
         setInterval(() => {
-            if (this.isDead()) {
-                if (this.isAboveTheBottomBoundary()) {
-                    this.speed = 2;
-                    this.moveUp();
-                }
+            if (this.isDead()) {  
+                  this.speed = 2;
+                    this.moveUp();        
             } else {
                  
                 if (this.isMoveDown ==false) {

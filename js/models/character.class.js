@@ -113,7 +113,7 @@ class Character extends MovableObject {
     ];
 
    // speed = 3.5;
-   speed = 12;
+   speed = 13.5;
     world;
     swimming_sound = new Audio('../audio/swimming.mp3');
 

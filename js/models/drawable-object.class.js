@@ -51,8 +51,8 @@ class DrawableObject {
             // ctx.rect(this.x , this.y +5 , this.width , this.height -10);
         }
         else if (this instanceof DangerousjellyFish) {
-            // ctx.rect(this.x , this.y , this.width , this.height);
-            // ctx.rect(this.x , this.y +5 , this.width , this.height -10);
+             ctx.rect(this.x , this.y , this.width , this.height);
+             ctx.rect(this.x , this.y +5 , this.width , this.height -10);
         } else if (this instanceof Bubble) {
             ctx.rect(this.x, this.y, this.width, this.height);
         } else if (this instanceof PoissonBubble) {
