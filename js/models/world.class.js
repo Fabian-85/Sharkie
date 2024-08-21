@@ -24,13 +24,13 @@ class World {
 
     setWorld() {
         this.character.world = this;
-          
+
     }
 
-    setCharacterForEnemies(){
+    setCharacterForEnemies() {
         this.level.enemies.forEach(enemy => {
-            enemy.character =this.character;
-         }); 
+            enemy.character = this.character;
+        });
     }
 
     draw() {
@@ -43,10 +43,10 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poissons);
         this.addObjectsToMap(this.level.enemies);
-       this.addObjectsToMap(this.level.bubbles); 
+        this.addObjectsToMap(this.level.bubbles);
         this.addToMap(this.character);
-         
-         
+
+
         this.ctx.translate(-this.camera_x, 0);
 
 
@@ -59,10 +59,6 @@ class World {
         this.addToMap(this.poisonBar);
         this.ctx.fillText(this.character.coinCount, 615, 190);
         this.addToMap(this.coinBar);
-         
-         
-      
-
 
         let self = this;
         requestAnimationFrame(
@@ -86,9 +82,9 @@ class World {
 
     addBubble() {
         setInterval(() => {
-             for (let i = 0; i < 5; i++) {
-                this.level.bubbles.push(new Bubble(this.generateRadomNumbers(this.character.x -400,this.character.x +800) , this.generateRadomNumbers(480,600)));     
-             }
+            for (let i = 0; i < 5; i++) {
+                this.level.bubbles.push(new Bubble(this.generateRadomNumbers(this.character.x - 400, this.character.x + 800), this.generateRadomNumbers(480, 600)));
+            }
         }, 3000);
 
     }
@@ -96,59 +92,59 @@ class World {
 
     checkCollisionsWithEnemies() {
         this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy) && this.character.isHurt() ==false && enemy.isDead() ==false) {
+            if (this.character.isColliding(enemy) && this.character.isHurt() == false && enemy.isDead() == false) {
                 this.character.hit();
                 console.log('Collision ' + this.character.energy);
-                 
+
             }
             ;
         });
 
     }
 
-    checkCollisionsWithBubbleAndCharacter(){
+    checkCollisionsWithBubbleAndCharacter() {
         for (let i = 0; i < this.level.bubbles.length; i++) {
             const bubble = this.level.bubbles[i];
-            if(this.character.isColliding(bubble)){
+            if (this.character.isColliding(bubble)) {
                 this.character.bubbleCount++;
-                this.level.bubbles.splice(i,1);
+                this.level.bubbles.splice(i, 1);
             }
         }
     }
 
-    checkCollisionsWithBubbleAndEnemy(){
+    checkCollisionsWithBubbleAndEnemy() {
         for (let i = 0; i < this.level.bubbles.length; i++) {
             const bubble = this.level.bubbles[i];
             for (let j = 0; j < this.level.enemies.length; j++) {
                 const enemy = this.level.enemies[j];
-                if (enemy.isColliding(bubble)  && bubble.noDammage == false && !enemy.isDead()) {
-                    this.level.bubbles.splice(i,1);
+                if (enemy.isColliding(bubble) && bubble.noDammage == false && !enemy.isDead()) {
+                    this.level.bubbles.splice(i, 1);
                     this.level.enemies[j].hit(bubble.dammage);
-                 //   if(enemy.energy == 0){ 
-                  //  this.level.enemies.splice(j,1);
-                   // }
-                }         
-              
-            } 
-        }
-    }
+                    //   if(enemy.energy == 0){ 
+                    //  this.level.enemies.splice(j,1);
+                    // }
+                }
 
-    checkCollisionsWithPoisson(){
-        for (let i = 0; i < this.level.poissons.length; i++) {
-            const poisson = this.level.poissons[i];
-            if (this.character.isColliding(poisson)) {
-                this.level.poissons.splice(i,1);
-                this.character.poissonCount++;  
             }
         }
     }
 
-    checkCollisionsWithCoins(){
+    checkCollisionsWithPoisson() {
+        for (let i = 0; i < this.level.poissons.length; i++) {
+            const poisson = this.level.poissons[i];
+            if (this.character.isColliding(poisson)) {
+                this.level.poissons.splice(i, 1);
+                this.character.poissonCount++;
+            }
+        }
+    }
+
+    checkCollisionsWithCoins() {
         for (let i = 0; i < this.level.coins.length; i++) {
             const coin = this.level.coins[i];
             if (this.character.isColliding(coin)) {
-                this.level.coins.splice(i,1);
-                this.character.coinCount++;  
+                this.level.coins.splice(i, 1);
+                this.character.coinCount++;
             }
         }
     }
@@ -166,7 +162,7 @@ class World {
 
         object.draw(this.ctx);
 
-        object.drawBorder(this.ctx);
+        //object.drawBorder(this.ctx);
 
 
 

@@ -5,8 +5,8 @@ class Character extends MovableObject {
     width = 250;
     height = 250;
     energy = 100;
-    bubbleCount = 100;
-    poissonCount = 100;
+    bubbleCount = 0;
+    poissonCount = 0;
     coinCount = 0;
     lastThrowBubbleTime = 0;
     standTime = 0;
@@ -113,7 +113,7 @@ class Character extends MovableObject {
     ];
 
    // speed = 3.5;
-   speed = 13.5;
+   speed = 3.5;
     world;
     swimming_sound = new Audio('../audio/swimming.mp3');
 
