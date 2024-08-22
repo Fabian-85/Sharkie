@@ -44,7 +44,7 @@ class PufferFish extends Enemy {
                 }
                
             } else {
-                if(this.x - this.character.x <750 || this.firstMove){ 
+                if(this.x - world.character.x <750 || this.firstMove){ 
                 this.moveLeft();
                 this.firstMove = true;
             }

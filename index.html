@@ -40,9 +40,19 @@
 
 </head>
 
-<body onload="init()">
-    <h1>Sharkie</h1>
-    <canvas id="canvas" width="720" height="480"></canvas>
+<body onload="init()" >
+  
+    <canvas class="" id="canvas" width="720" height="480"></canvas>
+
+    <div id="startscreen" class="startscreen d-none">
+        <div class="headline"> <img class="character" src="../img/1.Sharkie/6.dead/2.Electro_shock/1.png" alt="">
+            <h1>Sharkie</h1>
+        </div>
+        <div class="buttons">
+            <button onclick="playGame()" class="button" type="button">Spielen</button>
+            <button class="button" type="button">Steuerung</button>
+        </div>
+    </div>
 
 </body>
 

@@ -45,17 +45,17 @@ class DangerousjellyFish extends Enemy {
                     this.moveUp();
                 
             } else {
-                if(this.x - this.character.x <1000 || this.firstMove){ 
+                if(this.x - world.character.x <1000 || this.firstMove){ 
                     this.firstMove = true;
-                if (this.x > this.character.x + this.character.xLeftCorrection) {
+                if (this.x > world.character.x + world.character.xLeftCorrection) {
                   this.moveLeft();
-                } else if (this.x   < this.character.x + this.character.xLeftCorrection) {
+                } else if (this.x   < world.character.x + world.character.xLeftCorrection) {
                     this.moveRight();
                 }
 
-                if (this.y > this.character.y + this.character.yUpCorrection ) {
+                if (this.y > world.character.y + world.character.yUpCorrection ) {
                    this.moveUp();
-                } else if (this.y   < this.character.y + this.character.yUpCorrection) {
+                } else if (this.y   < world.character.y + world.character.yUpCorrection) {
                     this.moveDown();
                 }
 

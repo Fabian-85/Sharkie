@@ -6,7 +6,9 @@ class Endboss extends Enemy {
     height = 500;
     energy = 200;
     hadFirstContact = false;
-    speed =1;
+    speed = 2;
+    isAttack = false;
+    
 
 
     IMAGES_SWIMMING = [
@@ -25,7 +27,7 @@ class Endboss extends Enemy {
         '../img/2.Enemy/3 Final Enemy/2.floating/13.png',
     ];
 
-    IMAGES_ATTACK =[
+    IMAGES_ATTACK = [
         '../img/2.Enemy/3 Final Enemy/Attack/1.png',
         '../img/2.Enemy/3 Final Enemy/Attack/2.png',
         '../img/2.Enemy/3 Final Enemy/Attack/3.png',
@@ -63,6 +65,7 @@ class Endboss extends Enemy {
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_INTRODUCTION);
         this.loadImages(this.IMAGES_DEATH);
+        this.loadImages(this.IMAGES_ATTACK);
         this.xLeftCorrection = 30;
         this.xRightCorrection = -40;
         this.yUpCorrection = 250;
@@ -70,42 +73,70 @@ class Endboss extends Enemy {
         this.animate();
     }
 
- 
+
 
     animate() {
-        
+
         setInterval(() => {
-            if(this.hadFirstContact == true){
-                if ((this.character.y + 0.5 *(this.character.height-this.character.yUpCorrection+this.character.yBottomCorrection)+this.character.yUpCorrection) < (this.y + 0.5 *(this.height-this.yUpCorrection+this.yBottomCorrection)+this.yUpCorrection)) {
-                  this.moveUp();
-                 } else if((this.character.y + 0.5 *(this.character.height-this.character.yUpCorrection+this.character.yBottomCorrection)+this.character.yUpCorrection) > (this.y + 0.5 *(this.height-this.yUpCorrection+this.yBottomCorrection)+this.yUpCorrection)){
+            if (this.hadFirstContact == true) {
+                if ((world.character.y + 0.5 * (world.character.height - world.character.yUpCorrection + world.character.yBottomCorrection) + world.character.yUpCorrection) < (this.y + 0.5 * (this.height - this.yUpCorrection + this.yBottomCorrection) + this.yUpCorrection)) {
+                    this.moveUp();
+                } else if ((world.character.y + 0.5 * (world.character.height - world.character.yUpCorrection + world.character.yBottomCorrection) + world.character.yUpCorrection) > (this.y + 0.5 * (this.height - this.yUpCorrection + this.yBottomCorrection) + this.yUpCorrection)) {
                     this.moveDown();
-                 }
+                }
+
+                if (world.character.x - world.character.xRightCorrection < this.x - this.xLeftCorrection && this.isAttack == true) {
+                    this.otherDirection = false;
+                    this.moveLeft();
+                }
+                if (world.character.x - world.character.xRightCorrection > this.x - this.xLeftCorrection && this.isAttack == true) {
+                    this. otherDirection = true;
+                    this.moveRight();
+                }
+               
 
             }
         }, 1000 / 60);
 
 
-        let i = 0;
-        setInterval(() => {
-           if(i<10){
-            this.loadImage(this.IMAGES_INTRODUCTION[i]);
-            i++;
-           }else{ 
-            this.hadFirstContact = true;
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEATH);
-            } else {
-                this.playAnimation(this.IMAGES_SWIMMING);
-            }
-        }
-         
-        if(this.character.x < 4800 && this.hadFirstContact == false){
-            i=0;
-        }
-       
 
-         
+
+        let i = 0;
+        let j = 1;
+        let k = 0;
+
+        setInterval(() => {
+            console.log(j)
+            if (i < 10) {
+                this.loadImage(this.IMAGES_INTRODUCTION[i]);
+                i++;
+            } else {
+                this.hadFirstContact = true;
+                if (this.isDead()) {
+                    this.playAnimation(this.IMAGES_DEATH);
+                } else if (j % 10 == 0) {
+                    if (k < this.IMAGES_ATTACK.length) {
+                        this.isAttack = true;
+                        this.loadImage(this.IMAGES_ATTACK[k]);
+                        k++;
+                    } else {
+                        j++;
+                        k = 0;
+                        this.isAttack = false;
+                    }
+                } else {
+                    this.playAnimation(this.IMAGES_SWIMMING);
+                    j++;
+                }
+            }
+
+
+            if (world.character.x < 4800 && this.hadFirstContact == false) {
+                i = 0;
+            }
+
+
+
         }, 200);
 
     }

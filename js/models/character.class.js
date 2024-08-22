@@ -113,9 +113,9 @@ class Character extends MovableObject {
     ];
 
    // speed = 3.5;
-   speed = 3.5;
-    world;
-    swimming_sound = new Audio('../audio/swimming.mp3');
+   speed = 13.5;
+    
+    //swimming_sound = new Audio('../audio/swimming.mp3');
 
     constructor() {
         super().loadImage('../img/1.Sharkie/1.IDLE/1.png');
@@ -132,7 +132,7 @@ class Character extends MovableObject {
         this.yUpCorrection = 120;
         this.yBottomCorrection = -60;
         this.animate();
-        this.swimming_sound.volume = 0.3;
+       // this.swimming_sound.volume = 0.3;
     }
 
     animate() {
@@ -140,26 +140,26 @@ class Character extends MovableObject {
         
         setInterval(() => {
              
-            if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end) {
-                this.swimming_sound.play();
+            if (world.keyboard.RIGHT && this.x <= world.level.level_end) {
+             //   this.swimming_sound.play();
                 this.otherDirection = false;
                 this.moveRight();
             }
-            if (this.world.keyboard.LEFT && this.x >= -200) {
-                this.swimming_sound.play();
+            if (world.keyboard.LEFT && this.x >= -200) {
+             //   this.swimming_sound.play();
                 this.otherDirection = true;
                 this.moveLeft();
             }
-            if (this.world.keyboard.UP && this.isUnderTheTopBoundary()) {
-                this.swimming_sound.play();
+            if (world.keyboard.UP && this.isUnderTheTopBoundary()) {
+             //   this.swimming_sound.play();
                 this.moveUp();
             }
-            if ((this.world.keyboard.DOWN   || this.IsSleep()) && this.isAboveTheBottomBoundary()) {
-                this.swimming_sound.play();
+            if ((world.keyboard.DOWN   || this.IsSleep()) && this.isAboveTheBottomBoundary()) {
+              //  this.swimming_sound.play();
                 this.moveDown();
             }
           
-            this.world.camera_x = -this.x + 100;
+            world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
 
@@ -172,16 +172,16 @@ class Character extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.standTime=0;
-            } else if ((this.world.keyboard.SPACE || this.world.keyboard.M) && !this.canThrowBubble()) {
+            } else if ((world.keyboard.SPACE || world.keyboard.M) && !this.canThrowBubble()) {
                 this.playAnimation(this.IMAGES_ATTACK_WITHOUT_BUBBLES);
                 this.standTime=0;
-            } else if (this.world.keyboard.SPACE) {
+            } else if (world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_WITH_BUBBLES);
                 this.standTime=0;
-            } else if (this.world.keyboard.M) {
+            } else if (world.keyboard.M) {
                 this.playAnimation(this.IMAGES_ATTACK_WITH_POISSON_BUBBLES);
                 this.standTime=0;
-            } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
+            } else if (world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN) {
                 this.playAnimation(this.IMAGES_SWIMMING);
                 this.standTime=0;
             } else {
@@ -208,16 +208,16 @@ class Character extends MovableObject {
    
 
     throwPoissonBubble() {
-        if (this.world.keyboard.M && this.poissonCount > 0 && this.canThrowBubble() && !this.isHurt()) {
+        if (world.keyboard.M && this.poissonCount > 0 && this.canThrowBubble() && !this.isHurt()) {
             if (this.otherDirection == false) {
                 let bubble = new PoissonBubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-                this.world.level.bubbles.push(bubble);
+            world.level.bubbles.push(bubble);
                 bubble.throwRight();
             } else {
                 let bubble = new PoissonBubble(this.x, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-                this.world.level.bubbles.push(bubble);
+                world.level.bubbles.push(bubble);
                 bubble.throwLeft();
             }
             this.lastThrowBubbleTime = new Date().getTime();
@@ -233,16 +233,16 @@ class Character extends MovableObject {
     }
 
     throwBubble() {
-        if (this.world.keyboard.SPACE && this.canThrowBubble() && !this.isHurt()) {
+        if (world.keyboard.SPACE && this.canThrowBubble() && !this.isHurt()) {
             if (this.otherDirection == false) {
                 let bubble = new Bubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-                this.world.level.bubbles.push(bubble);
+                world.level.bubbles.push(bubble);
                 bubble.throwRight();
             } else {
                 let bubble = new Bubble(this.x, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-                this.world.level.bubbles.push(bubble);
+                world.level.bubbles.push(bubble);
                 bubble.throwLeft();
             }
             this.lastThrowBubbleTime = new Date().getTime();

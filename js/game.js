@@ -1,18 +1,26 @@
  let canvas; 
 
-let world;
+let world; 
 let keyboard = new Keyboard();
 
 function init(){ 
 canvas = document.getElementById("canvas");
 world = new World(canvas,keyboard);
-  
+setLevel();
+world.level = level1;
+world.draw();
+world.run();
+world.addBubble();
+}
+
+function playGame(){
+document.getElementById('canvas').classList.remove('d-none');
+document.getElementById('startscreen').classList.add('d-none');
+init();
 }
 
 
-
 document.addEventListener('keydown', (event)=> {    
-     //console.log(event.keyCode);
       if(event.keyCode == 65 || event.keyCode == 37){
         keyboard.LEFT = true; 
       }

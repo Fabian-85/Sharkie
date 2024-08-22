@@ -1,37 +1,27 @@
 class World {
 
     canvas;
-    ctx;
-    character = new Character();
+    ctx; 
+    keyboard;
+    character ;
     bubbleBar = new BubbleBar();
     healthBar = new HealthBar();
     poisonBar = new PoissonBar();
     coinBar = new CoinBar();
-    level = level1;
+    level;
     lastThrowBubbleTime = 0;
-    keyboard;
     camera_x = 0;
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
-        this.draw();
-        this.setWorld();
-        this.setCharacterForEnemies();
-        this.run();
-        this.addBubble();
+        this.character = new Character();
+         
+       
     }
+    
 
-    setWorld() {
-        this.character.world = this;
-
-    }
-
-    setCharacterForEnemies() {
-        this.level.enemies.forEach(enemy => {
-            enemy.character = this.character;
-        });
-    }
+     
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
