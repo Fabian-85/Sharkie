@@ -28,6 +28,14 @@ function closeControllingCenter(){
   document.getElementById('controlling').classList.add('d-none');
 }
 
+function backToTheMenu(){
+  document.getElementById('canvas').classList.add('d-none');
+  document.getElementById('winningscreen').style.transform = 'translateX(100%)';
+  document.getElementById('losingscreen').style.transform = 'translateX(100%)';
+  document.getElementById('startscreen').classList.remove('d-none');
+
+}
+
 function generateRadomNumbers(from, to) {
   return Math.random() * (to - from) + from;
 }

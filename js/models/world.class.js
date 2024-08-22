@@ -11,13 +11,12 @@ class World {
     level;
     lastThrowBubbleTime = 0;
     camera_x = 0;
+
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
         this.character = new Character();
-         
-       
     }
     
 
@@ -29,7 +28,6 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
-
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poissons);
         this.addObjectsToMap(this.level.enemies);
@@ -67,13 +65,12 @@ class World {
             this.checkCollisionsWithBubbleAndCharacter();
             this.checkCollisionsWithBubbleAndEnemy();
         }, 100);
-
     }
 
     addBubble() {
         setInterval(() => {
             for (let i = 0; i < 5; i++) {
-                this.level.bubbles.push(new Bubble(this.generateRadomNumbers(this.character.x - 400, this.character.x + 800), this.generateRadomNumbers(480, 600)));
+                this.level.bubbles.push(new Bubble(generateRadomNumbers(this.character.x - 400, this.character.x + 800), generateRadomNumbers(480, 600)));
             }
         }, 3000);
 
@@ -84,8 +81,6 @@ class World {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy) && this.character.isHurt() == false && enemy.isDead() == false) {
                 this.character.hit();
-                console.log('Collision ' + this.character.energy);
-
             }
             ;
         });
@@ -110,11 +105,7 @@ class World {
                 if (enemy.isColliding(bubble) && bubble.noDammage == false && !enemy.isDead()) {
                     this.level.bubbles.splice(i, 1);
                     this.level.enemies[j].hit(bubble.dammage);
-                    //   if(enemy.energy == 0){ 
-                    //  this.level.enemies.splice(j,1);
-                    // }
                 }
-
             }
         }
     }
@@ -139,13 +130,24 @@ class World {
         }
     }
 
+    showLosingSCreen(){
+            this.clearAllIntervals();
+           document.getElementById('losingscreen').style.transform = 'translateX(0)';
+    }
 
+    showWinningScreen(){
+            this.clearAllIntervals();
+            document.getElementById('winningscreen').style.transform = 'translateX(0)';
 
-
-
+    }
+    
+    clearAllIntervals() {
+        for (let i = 1; i < 9999; i++){
+        window.clearInterval(i);
+        }
+      }
 
     addToMap(object) {
-
         if (object.otherDirection == true) {
             this.flipImage(object);
         }
@@ -182,7 +184,5 @@ class World {
         this.ctx.restore();
     }
 
-    generateRadomNumbers(from, to) {
-        return Math.random() * (to - from) + from;
-    }
+ 
 }

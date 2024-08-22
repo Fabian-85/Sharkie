@@ -9,8 +9,6 @@ class Endboss extends MovableObject {
     speed = 2;
     isAttack = false;
     
-
-
     IMAGES_SWIMMING = [
         '../img/2.Enemy/3 Final Enemy/2.floating/1.png',
         '../img/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -104,6 +102,7 @@ class Endboss extends MovableObject {
         let i = 0;
         let j = 1;
         let k = 0;
+        let death = 0;
 
         setInterval(() => {
             console.log(j)
@@ -114,6 +113,11 @@ class Endboss extends MovableObject {
                 this.hadFirstContact = true;
                 if (this.isDead()) {
                     this.playAnimation(this.IMAGES_DEATH);
+                    this.moveDown();
+                    death++;
+                    if(death>15){
+                        world.showWinningScreen();
+                    } 
                 } else if (j % 10 == 0) {
                     if (k < this.IMAGES_ATTACK.length) {
                         this.isAttack = true;

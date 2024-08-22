@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 
 <head>
     <meta charset="UTF-8">
@@ -31,10 +31,23 @@
     <script src="js/game.js"></script>
 </head>
 
-<body>
+<body onload="">
 
-    <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
+    <div class="test">
+        <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
 
+        <div id="winningscreen" class="winningscreen">
+            <img src="../img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
+            <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
+        </div>
+
+        <div id="losingscreen" class="losingscreen">
+            <img src="../img/6.Botones/Tittles/Game Over/Recurso 11.png" alt="">
+            <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
+        </div>
+    </div>
+
+    </div>
     <div id="startscreen" class="screen">
         <div class="headline"> <img class="character" src="../img/1.Sharkie/6.dead/2.Electro_shock/1.png" alt="">
             <h1>Sharkie</h1>
@@ -51,14 +64,15 @@
             <h1>Sharkie</h1>
         </div>
         <div class="keyboard-layout">
-            <div> <span>LEFT: </span> <span>A OR ARROW KEY</span>     </div>
-            <div> <span>RIGHT: </span> <span>D OR ARROW KEY</span>    </div>
-            <div> <span>UP: </span> <span>W OR ARROW KEY</span>       </div>
-            <div> <span>DOWN: </span> <span>S OR ARROW KEY</span>     </div>
+            <div> <span>LEFT: </span> <span>A OR ARROW KEY</span> </div>
+            <div> <span>RIGHT: </span> <span>D OR ARROW KEY</span> </div>
+            <div> <span>UP: </span> <span>W OR ARROW KEY</span> </div>
+            <div> <span>DOWN: </span> <span>S OR ARROW KEY</span> </div>
             <div> <span>BUBBLE: </span> <span>WHITE BAR </span> </div>
-            <div> <span>POISSON BUBBLE:</span> <span>M </span>  </div>
+            <div> <span>POISSON BUBBLE:</span> <span>M </span> </div>
         </div>
     </div>
 
 </body>
+
 </html>

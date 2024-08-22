@@ -143,7 +143,7 @@ class Character extends MovableObject {
             if (world.keyboard.RIGHT && this.x <= world.level.level_end) {
              //   this.swimming_sound.play();
                 this.otherDirection = false;
-                this.moveRight();
+                this.moveRight(); 
             }
             if (world.keyboard.LEFT && this.x >= -200) {
              //   this.swimming_sound.play();
@@ -163,12 +163,15 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
 
-          
+          let i = 0;
         setInterval(() => {
-          
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.standTime=0;
+                i++;
+                if(i>11){
+                    world.showLosingSCreen();
+                }
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.standTime=0;
@@ -212,7 +215,7 @@ class Character extends MovableObject {
             if (this.otherDirection == false) {
                 let bubble = new PoissonBubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
                 bubble.noDammage = false;
-            world.level.bubbles.push(bubble);
+                world.level.bubbles.push(bubble);
                 bubble.throwRight();
             } else {
                 let bubble = new PoissonBubble(this.x, this.y + 0.5 * this.height);

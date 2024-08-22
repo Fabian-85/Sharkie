@@ -26,9 +26,9 @@ class JellyFish extends MovableObject {
         super().loadImage(this.IMAGES_SWIMMING[0]);
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_DEATH);
-        this.speed = this.generateRadomNumbers(2,3);
+        this.speed = generateRadomNumbers(2,3);
         this.x = x;
-        this.y = this.generateRadomNumbers(0, 380);
+        this.y = generateRadomNumbers(0, 380);
         this.yUpCorrection = 5;
         this.yBottomCorrection = -5;
         this.animate();

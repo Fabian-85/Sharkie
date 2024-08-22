@@ -28,8 +28,8 @@ class DangerousjellyFish extends MovableObject {
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_DEATH);
         this.x = x;
-        this.x = this.generateRadomNumbers(3800,5000);
-        this.y =this.generateRadomNumbers(0,370), 
+        this.x = generateRadomNumbers(3800,5000);
+        this.y =generateRadomNumbers(0,370), 
         this.speed =1;
         this.yUpCorrection = 5;
         this.yBottomCorrection = -5;

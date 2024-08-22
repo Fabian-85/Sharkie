@@ -25,12 +25,12 @@ class PufferFish extends MovableObject {
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGE_DEATH);
         this.x =  x;
-        this.y = this.generateRadomNumbers(0, 400);
+        this.y = generateRadomNumbers(0, 400);
         this.xLeftCorrection = 5;
         this.xRightCorrection = -10;
         this.yUpCorrection = 5;
         this.yBottomCorrection = -25;
-        this.speed = this.generateRadomNumbers(0.8, 1.3);
+        this.speed = generateRadomNumbers(0.8, 1.3);
        
         this.animate();
     }

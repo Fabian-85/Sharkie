@@ -11,6 +11,7 @@ function setLevel() {
 
 function createEnemies() {
     return [
+        new Endboss(),
         new PufferFish(generateRadomNumbers(800, 1000)),
         new PufferFish(generateRadomNumbers(800, 1000)),
         new PufferFish(generateRadomNumbers(1400, 1800)),
@@ -33,8 +34,7 @@ function createEnemies() {
         new DangerousjellyFish(3800),
         new DangerousjellyFish(4000),
         new DangerousjellyFish(4500),
-        new DangerousjellyFish(5000),
-        new Endboss()
+        new DangerousjellyFish(5000)
     ];
 }
 
