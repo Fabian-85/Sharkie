@@ -7,8 +7,6 @@ class Keyboard {
     SPACE = false;
     M = false;
 
-
-
 }
 
 

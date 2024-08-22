@@ -1,4 +1,4 @@
-class DangerousjellyFish extends Enemy {
+class DangerousjellyFish extends MovableObject {
 
 
     x = 90;

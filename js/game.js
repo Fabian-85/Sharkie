@@ -1,5 +1,4 @@
 let canvas;
-
 let world;
 let keyboard = new Keyboard();
 
@@ -27,9 +26,11 @@ function showControlling(){
 function closeControllingCenter(){
   document.getElementById('startscreen').classList.remove('d-none');
   document.getElementById('controlling').classList.add('d-none');
-  
 }
 
+function generateRadomNumbers(from, to) {
+  return Math.random() * (to - from) + from;
+}
 
 document.addEventListener('keydown', (event) => {
   if (event.keyCode == 65 || event.keyCode == 37) {

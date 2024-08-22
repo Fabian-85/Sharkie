@@ -1,4 +1,4 @@
-class Endboss extends Enemy {
+class Endboss extends MovableObject {
 
     x = 5200;
     y = 0;

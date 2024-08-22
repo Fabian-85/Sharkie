@@ -1,4 +1,4 @@
-class JellyFish extends Enemy {
+class JellyFish extends MovableObject {
 
 
 

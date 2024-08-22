@@ -8,6 +8,7 @@ class ThrowableObject extends MovableObject{
     startposition;
     noDammage = true;
 
+
     throwRight() {
         this.startposition = this.x;
         setInterval(() => {

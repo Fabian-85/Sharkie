@@ -152,7 +152,7 @@ class World {
 
         object.draw(this.ctx);
 
-        //object.drawBorder(this.ctx);
+   
 
 
 

@@ -1,4 +1,4 @@
-class PufferFish extends Enemy {
+class PufferFish extends MovableObject {
 
 
     x = 40;
