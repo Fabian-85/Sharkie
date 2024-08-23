@@ -8,7 +8,6 @@ class ThrowableObject extends MovableObject{
     startposition;
     noDammage = true;
 
-
     throwRight() {
         this.startposition = this.x;
         setInterval(() => {
@@ -33,10 +32,9 @@ class ThrowableObject extends MovableObject{
         }, 40);
     }
 
-
     moveUp(){
         setInterval(() => {
-            if(this.noDammage == true){ 
+            if(this.noDammage){ 
             this.y -= 3;
             } 
         }, 40);

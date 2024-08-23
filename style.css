@@ -103,7 +103,7 @@ h1 {
     cursor: pointer;
 }
 
-.test {
+.game {
     position: relative;
     overflow-x: hidden;
 }
@@ -115,6 +115,7 @@ h1 {
     top: 0;
     left: 0;
     transform: translateX(100%);
+    transition: all 1s ease-in-out;
 }
 
 .winningscreen img {
@@ -124,13 +125,14 @@ h1 {
 
 .winningscreen button {
     position: absolute;
-    bottom:40px;
-    left:50%;
+    bottom: 40px;
+    left: 50%;
     transform: translateX(-50%);
 }
 
 .losingscreen {
     transform: translateX(100%);
+    transition: all 1s ease-in-out;
     position: absolute;
     height: 480px;
     width: 720px;
@@ -145,7 +147,7 @@ h1 {
 
 .losingscreen button {
     position: absolute;
-    bottom:40px;
-    left:50%;
+    bottom: 40px;
+    left: 50%;
     transform: translateX(-50%);
 }

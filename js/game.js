@@ -18,22 +18,38 @@ function playGame() {
   document.getElementById('startscreen').classList.add('d-none');
 }
 
-function showControlling(){
+function showControlling() {
   document.getElementById('controlling').classList.remove('d-none');
   document.getElementById('startscreen').classList.add('d-none');
 }
 
-function closeControllingCenter(){
+function closeControllingCenter() {
   document.getElementById('startscreen').classList.remove('d-none');
   document.getElementById('controlling').classList.add('d-none');
 }
 
-function backToTheMenu(){
+function backToTheMenu() {
   document.getElementById('canvas').classList.add('d-none');
   document.getElementById('winningscreen').style.transform = 'translateX(100%)';
   document.getElementById('losingscreen').style.transform = 'translateX(100%)';
   document.getElementById('startscreen').classList.remove('d-none');
 
+}
+
+function showLosingScreen() {
+  this.clearAllIntervals();
+  document.getElementById('losingscreen').style.transform = 'translateX(0)';
+}
+
+function showWinningScreen() {
+  this.clearAllIntervals();
+  document.getElementById('winningscreen').style.transform = 'translateX(0)';
+}
+
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) {
+    window.clearInterval(i);
+  }
 }
 
 function generateRadomNumbers(from, to) {

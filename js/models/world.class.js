@@ -1,9 +1,9 @@
 class World {
 
     canvas;
-    ctx; 
+    ctx;
     keyboard;
-    character ;
+    character;
     bubbleBar = new BubbleBar();
     healthBar = new HealthBar();
     poisonBar = new PoissonBar();
@@ -18,43 +18,19 @@ class World {
         this.keyboard = keyboard;
         this.character = new Character();
     }
-    
-
-     
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.poissons);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.bubbles);
-        this.addToMap(this.character);
-
-
+        this.addAllMovableObjectsToWorld();
         this.ctx.translate(-this.camera_x, 0);
-
-
-        this.ctx.font = "25px Luckiest Guy";
-        this.ctx.fillText(this.character.energy, 615, 50);
-        this.addToMap(this.healthBar);
-        this.ctx.fillText(this.character.bubbleCount, 615, 85);
-        this.addToMap(this.bubbleBar);
-        this.ctx.fillText(this.character.poissonCount, 615, 135);
-        this.addToMap(this.poisonBar);
-        this.ctx.fillText(this.character.coinCount, 615, 190);
-        this.addToMap(this.coinBar);
-
+        this.addAllStatusBarsToWorld();
         let self = this;
         requestAnimationFrame(
             function () {
                 self.draw();
             }
         );
-
     }
 
     run() {
@@ -67,15 +43,26 @@ class World {
         }, 100);
     }
 
-    addBubble() {
-        setInterval(() => {
-            for (let i = 0; i < 5; i++) {
-                this.level.bubbles.push(new Bubble(generateRadomNumbers(this.character.x - 400, this.character.x + 800), generateRadomNumbers(480, 600)));
-            }
-        }, 3000);
-
+    addAllMovableObjectsToWorld() {
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.poissons);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.bubbles);
+        this.addToMap(this.character);
     }
 
+    addAllStatusBarsToWorld() {
+        this.ctx.font = "25px Luckiest Guy";
+        this.ctx.fillText(this.character.energy, 615, 50);
+        this.addToMap(this.healthBar);
+        this.ctx.fillText(this.character.bubbleCount, 615, 85);
+        this.addToMap(this.bubbleBar);
+        this.ctx.fillText(this.character.poissonCount, 615, 135);
+        this.addToMap(this.poisonBar);
+        this.ctx.fillText(this.character.coinCount, 615, 190);
+        this.addToMap(this.coinBar);
+    }
 
     checkCollisionsWithEnemies() {
         this.level.enemies.forEach(enemy => {
@@ -84,7 +71,6 @@ class World {
             }
             ;
         });
-
     }
 
     checkCollisionsWithBubbleAndCharacter() {
@@ -130,39 +116,22 @@ class World {
         }
     }
 
-    showLosingSCreen(){
-            this.clearAllIntervals();
-           document.getElementById('losingscreen').style.transform = 'translateX(0)';
+    addBubble() {
+        setInterval(() => {
+            for (let i = 0; i < 5; i++) {
+                this.level.bubbles.push(new Bubble(generateRadomNumbers(this.character.x - 400, this.character.x + 800), generateRadomNumbers(480, 600)));
+            }
+        }, 5000);
     }
-
-    showWinningScreen(){
-            this.clearAllIntervals();
-            document.getElementById('winningscreen').style.transform = 'translateX(0)';
-
-    }
-    
-    clearAllIntervals() {
-        for (let i = 1; i < 9999; i++){
-        window.clearInterval(i);
-        }
-      }
 
     addToMap(object) {
         if (object.otherDirection == true) {
             this.flipImage(object);
         }
-
         object.draw(this.ctx);
-
-   
-
-
-
-
         if (object.otherDirection == true) {
             this.flipImageBack(object);
         }
-
     }
 
     addObjectsToMap(objects) {
@@ -183,6 +152,4 @@ class World {
         object.x = object.x * -1;
         this.ctx.restore();
     }
-
- 
 }

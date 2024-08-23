@@ -5,17 +5,23 @@ class Character extends MovableObject {
     width = 250;
     height = 250;
     energy = 100;
+    speed = 15.5;
+    xLeftCorrection = 50;
+    xRightCorrection = -44;
+    yUpCorrection = 120;
+    yBottomCorrection = -60;
     bubbleCount = 0;
     poissonCount = 0;
     coinCount = 0;
     lastThrowBubbleTime = 0;
     standTime = 0;
+    losingScreenCounter = 0;
 
     IMAGES_STAND_ON_THE_SPOT = [
         '../img/1.Sharkie/1.IDLE/1.png',
         '../img/1.Sharkie/1.IDLE/2.png',
         '../img/1.Sharkie/1.IDLE/3.png',
-       '../img/1.Sharkie/1.IDLE/4.png',
+        '../img/1.Sharkie/1.IDLE/4.png',
         '../img/1.Sharkie/1.IDLE/5.png',
         '../img/1.Sharkie/1.IDLE/6.png',
         '../img/1.Sharkie/1.IDLE/7.png',
@@ -31,12 +37,8 @@ class Character extends MovableObject {
 
     IMAGES_STAND_ON_THE_SPOT_LONG = [
         '../img/1.Sharkie/2.Long_IDLE/i1.png',
-       // '../img/1.Sharkie/2.Long_IDLE/I2.png',
-       // '../img/1.Sharkie/2.Long_IDLE/I3.png',
         '../img/1.Sharkie/2.Long_IDLE/I4.png',
         '../img/1.Sharkie/2.Long_IDLE/I5.png',
-       // '../img/1.Sharkie/2.Long_IDLE/I6.png',
-       // '../img/1.Sharkie/2.Long_IDLE/I7.png',
         '../img/1.Sharkie/2.Long_IDLE/I8.png',
         '../img/1.Sharkie/2.Long_IDLE/I9.png',
         '../img/1.Sharkie/2.Long_IDLE/I10.png',
@@ -112,116 +114,119 @@ class Character extends MovableObject {
 
     ];
 
-   // speed = 3.5;
-   speed = 13.5;
-    
-    //swimming_sound = new Audio('../audio/swimming.mp3');
-
     constructor() {
         super().loadImage('../img/1.Sharkie/1.IDLE/1.png');
-        this.loadImages(this.IMAGES_SWIMMING);
-        this.loadImages(this.IMAGES_STAND_ON_THE_SPOT);
-        this.loadImages(this.IMAGES_HURT);
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_ATTACK_WITH_BUBBLES);
-        this.loadImages(this.IMAGES_ATTACK_WITHOUT_BUBBLES);
-        this.loadImages(this.IMAGES_ATTACK_WITH_POISSON_BUBBLES);
-        this.loadImages(this.IMAGES_STAND_ON_THE_SPOT_LONG);
-        this.xLeftCorrection = 50;
-        this.xRightCorrection = -44;
-        this.yUpCorrection = 120;
-        this.yBottomCorrection = -60;
+        this.loadImages();
         this.animate();
-       // this.swimming_sound.volume = 0.3;
     }
 
     animate() {
-        
-        
-        setInterval(() => {
-             
-            if (world.keyboard.RIGHT && this.x <= world.level.level_end) {
-             //   this.swimming_sound.play();
-                this.otherDirection = false;
-                this.moveRight(); 
-            }
-            if (world.keyboard.LEFT && this.x >= -200) {
-             //   this.swimming_sound.play();
-                this.otherDirection = true;
-                this.moveLeft();
-            }
-            if (world.keyboard.UP && this.isUnderTheTopBoundary()) {
-             //   this.swimming_sound.play();
-                this.moveUp();
-            }
-            if ((world.keyboard.DOWN   || this.IsSleep()) && this.isAboveTheBottomBoundary()) {
-              //  this.swimming_sound.play();
-                this.moveDown();
-            }
-          
-            world.camera_x = -this.x + 100;
-        }, 1000 / 60);
-
-
-          let i = 0;
-        setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.standTime=0;
-                i++;
-                if(i>11){
-                    world.showLosingSCreen();
-                }
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-                this.standTime=0;
-            } else if ((world.keyboard.SPACE || world.keyboard.M) && !this.canThrowBubble()) {
-                this.playAnimation(this.IMAGES_ATTACK_WITHOUT_BUBBLES);
-                this.standTime=0;
-            } else if (world.keyboard.SPACE) {
-                this.playAnimation(this.IMAGES_ATTACK_WITH_BUBBLES);
-                this.standTime=0;
-            } else if (world.keyboard.M) {
-                this.playAnimation(this.IMAGES_ATTACK_WITH_POISSON_BUBBLES);
-                this.standTime=0;
-            } else if (world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN) {
-                this.playAnimation(this.IMAGES_SWIMMING);
-                this.standTime=0;
-            } else {
-                if (this.IsSleep()) {
-                    this.playAnimation(this.IMAGES_STAND_ON_THE_SPOT_LONG);
-                } else {
-                    this.playAnimation(this.IMAGES_STAND_ON_THE_SPOT);
-                    this.standTime++;
-                }
-                
-            }
-        }, 200);
-
+        setInterval(() => this.move(), 1000 / 60);
+        setInterval(() => this.playCharacterAnimation(), 200);
         setInterval(() => {
             this.throwBubble();
             this.throwPoissonBubble();
         }, 200);
-
     }
 
-    IsSleep(){
+    loadImages() {
+        super.loadImages(this.IMAGES_SWIMMING);
+        super.loadImages(this.IMAGES_STAND_ON_THE_SPOT);
+        super.loadImages(this.IMAGES_HURT);
+        super.loadImages(this.IMAGES_DEAD);
+        super.loadImages(this.IMAGES_ATTACK_WITH_BUBBLES);
+        super.loadImages(this.IMAGES_ATTACK_WITHOUT_BUBBLES);
+        super.loadImages(this.IMAGES_ATTACK_WITH_POISSON_BUBBLES);
+        super.loadImages(this.IMAGES_STAND_ON_THE_SPOT_LONG);
+    }
+
+    move() {
+        if (this.canMoveRight()) {
+            this.moveRight();
+        }
+        if (this.canMoveLeft()) {
+            this.moveLeft();
+        }
+        if (this.canMoveUp()) {
+            this.moveUp();
+        }
+        if (this.canMoveBottom()) {
+            this.moveDown();
+        }
+        world.camera_x = -this.x + 100;
+    }
+
+    playCharacterAnimation() {
+        if (this.isDead()) {
+            this.playDeadAnimation();
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+            this.standTime = 0;
+        } else if ((world.keyboard.SPACE || world.keyboard.M) && !this.canThrowBubble()) {
+            this.playAnimation(this.IMAGES_ATTACK_WITHOUT_BUBBLES);
+            this.standTime = 0;
+        } else if (world.keyboard.SPACE) {
+            this.playAnimation(this.IMAGES_ATTACK_WITH_BUBBLES);
+            this.standTime = 0;
+        } else if (world.keyboard.M && this.poissonCount > 0) {
+            this.playAnimation(this.IMAGES_ATTACK_WITH_POISSON_BUBBLES);
+            this.standTime = 0;
+        } else if (world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN) {
+            this.playAnimation(this.IMAGES_SWIMMING);
+            this.standTime = 0;
+        } else if (this.isSleep()) {
+            this.playAnimation(this.IMAGES_STAND_ON_THE_SPOT_LONG);
+        } else {
+            this.playAnimation(this.IMAGES_STAND_ON_THE_SPOT);
+            this.standTime++;
+        }
+    }
+
+    playDeadAnimation() {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.standTime = 0;
+        this.losingScreenCounter++;
+        if (this.losingScreenCounter > 11) {
+            showLosingScreen();
+        }
+    }
+
+    isSleep() {
         return this.standTime > 45;
     }
-   
+
+    canMoveLeft() {
+        return world.keyboard.LEFT && this.x >= -200 && !this.isDead();
+    }
+
+    canMoveRight() {
+        return world.keyboard.RIGHT && this.x <= world.level.level_end && !this.isDead();
+    }
+
+    canMoveUp() {
+        return world.keyboard.UP && this.isUnderTheTopBoundary() && !this.isDead();
+    }
+
+    canMoveBottom() {
+        return (world.keyboard.DOWN || this.isSleep()) && this.isAboveTheBottomBoundary() && !this.isDead();
+    }
+
+    moveLeft() {
+        this.otherDirection = true;
+        super.moveLeft();
+    }
+
+    moveRight() {
+        this.otherDirection = false;
+        super.moveRight();
+    }
 
     throwPoissonBubble() {
-        if (world.keyboard.M && this.poissonCount > 0 && this.canThrowBubble() && !this.isHurt()) {
+        if (world.keyboard.M && this.canThrowPoissonBubble()) {
             if (this.otherDirection == false) {
-                let bubble = new PoissonBubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
-                bubble.noDammage = false;
-                world.level.bubbles.push(bubble);
-                bubble.throwRight();
+                this.throwPoissonBubbleRight();
             } else {
-                let bubble = new PoissonBubble(this.x, this.y + 0.5 * this.height);
-                bubble.noDammage = false;
-                world.level.bubbles.push(bubble);
-                bubble.throwLeft();
+                this.throwPoissonBubbleLeft();
             }
             this.lastThrowBubbleTime = new Date().getTime();
             this.bubbleCount--;
@@ -229,29 +234,53 @@ class Character extends MovableObject {
         }
     }
 
-    canThrowBubble() {
-        let timepassed = new Date().getTime() - this.lastThrowBubbleTime;
-        timepassed = timepassed / 1000 // difference in second
-        return timepassed > 1 && this.bubbleCount > 0;
-    }
-
     throwBubble() {
-        if (world.keyboard.SPACE && this.canThrowBubble() && !this.isHurt()) {
+        if (world.keyboard.SPACE && this.canThrowBubble()) {
             if (this.otherDirection == false) {
-                let bubble = new Bubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
-                bubble.noDammage = false;
-                world.level.bubbles.push(bubble);
-                bubble.throwRight();
+                this.throwBubbleRight();
             } else {
-                let bubble = new Bubble(this.x, this.y + 0.5 * this.height);
-                bubble.noDammage = false;
-                world.level.bubbles.push(bubble);
-                bubble.throwLeft();
+                this.throwBubbleLeft();
             }
             this.lastThrowBubbleTime = new Date().getTime();
             this.bubbleCount--;
         }
     }
 
+    throwBubbleRight() {
+        let bubble = new Bubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
+        bubble.noDammage = false;
+        world.level.bubbles.push(bubble);
+        bubble.throwRight();
+    }
 
+    throwBubbleLeft() {
+        let bubble = new Bubble(this.x, this.y + 0.5 * this.height);
+        bubble.noDammage = false;
+        world.level.bubbles.push(bubble);
+        bubble.throwLeft();
+    }
+
+    throwPoissonBubbleRight() {
+        let bubble = new PoissonBubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
+        bubble.noDammage = false;
+        world.level.bubbles.push(bubble);
+        bubble.throwRight();
+    }
+
+    throwPoissonBubbleLeft() {
+        let bubble = new PoissonBubble(this.x, this.y + 0.5 * this.height);
+        bubble.noDammage = false;
+        world.level.bubbles.push(bubble);
+        bubble.throwLeft();
+    }
+
+    canThrowBubble() {
+        let timepassed = new Date().getTime() - this.lastThrowBubbleTime;
+        timepassed = timepassed / 1000 // difference in second
+        return timepassed > 1 && this.bubbleCount > 0 && !this.isHurt();
+    }
+
+    canThrowPoissonBubble() {
+        return this.canThrowBubble() && this.poissonCount > 0;
+    }
 }

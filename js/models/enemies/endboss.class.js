@@ -5,10 +5,18 @@ class Endboss extends MovableObject {
     width = 500;
     height = 500;
     energy = 200;
+    xLeftCorrection = 30;
+    xRightCorrection = -40;
+    yUpCorrection = 250;
+    yBottomCorrection = -100;
     hadFirstContact = false;
     speed = 2;
     isAttack = false;
-    
+    introductionImageCounter = 0;
+    attackCounter = 1;
+    i = 0;
+    winningScreenCounter = 0;
+
     IMAGES_SWIMMING = [
         '../img/2.Enemy/3 Final Enemy/2.floating/1.png',
         '../img/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -57,96 +65,112 @@ class Endboss extends MovableObject {
 
     ]
 
-
     constructor() {
         super().loadImage(this.IMAGES_INTRODUCTION[0]);
-        this.loadImages(this.IMAGES_SWIMMING);
-        this.loadImages(this.IMAGES_INTRODUCTION);
-        this.loadImages(this.IMAGES_DEATH);
-        this.loadImages(this.IMAGES_ATTACK);
-        this.xLeftCorrection = 30;
-        this.xRightCorrection = -40;
-        this.yUpCorrection = 250;
-        this.yBottomCorrection = -100;
+        this.loadImages();
         this.animate();
     }
 
-
-
     animate() {
-
-        setInterval(() => {
-            if (this.hadFirstContact == true) {
-                if ((world.character.y + 0.5 * (world.character.height - world.character.yUpCorrection + world.character.yBottomCorrection) + world.character.yUpCorrection) < (this.y + 0.5 * (this.height - this.yUpCorrection + this.yBottomCorrection) + this.yUpCorrection)) {
-                    this.moveUp();
-                } else if ((world.character.y + 0.5 * (world.character.height - world.character.yUpCorrection + world.character.yBottomCorrection) + world.character.yUpCorrection) > (this.y + 0.5 * (this.height - this.yUpCorrection + this.yBottomCorrection) + this.yUpCorrection)) {
-                    this.moveDown();
-                }
-
-                if (world.character.x - world.character.xRightCorrection < this.x - this.xLeftCorrection && this.isAttack == true) {
-                    this.otherDirection = false;
-                    this.moveLeft();
-                }
-                if (world.character.x - world.character.xRightCorrection > this.x - this.xLeftCorrection && this.isAttack == true) {
-                    this. otherDirection = true;
-                    this.moveRight();
-                }
-               
-
-            }
-        }, 1000 / 60);
-
-
-
-
-        let i = 0;
-        let j = 1;
-        let k = 0;
-        let death = 0;
-
-        setInterval(() => {
-            console.log(j)
-            if (i < 10) {
-                this.loadImage(this.IMAGES_INTRODUCTION[i]);
-                i++;
-            } else {
-                this.hadFirstContact = true;
-                if (this.isDead()) {
-                    this.playAnimation(this.IMAGES_DEATH);
-                    this.moveDown();
-                    death++;
-                    if(death>15){
-                        world.showWinningScreen();
-                    } 
-                } else if (j % 10 == 0) {
-                    if (k < this.IMAGES_ATTACK.length) {
-                        this.isAttack = true;
-                        this.loadImage(this.IMAGES_ATTACK[k]);
-                        k++;
-                    } else {
-                        j++;
-                        k = 0;
-                        this.isAttack = false;
-                    }
-                } else {
-                    this.playAnimation(this.IMAGES_SWIMMING);
-                    j++;
-                }
-            }
-
-
-            if (world.character.x < 4800 && this.hadFirstContact == false) {
-                i = 0;
-            }
-
-
-
-        }, 200);
+        setInterval(() => this.move(), 1000 / 60);
+        setInterval(() => this.playAnimation(), 200);
 
     }
 
+    loadImages() {
+        super.loadImages(this.IMAGES_SWIMMING);
+        super.loadImages(this.IMAGES_INTRODUCTION);
+        super.loadImages(this.IMAGES_DEATH);
+        super.loadImages(this.IMAGES_ATTACK);
+    }
 
+    move() {
+        if (this.hadFirstContact) {
+            if (this.isCharacterHigher()) {
+                this.moveUp();
+            } else if (this.isCharacterLower()) {
+                this.moveDown();
+            }
+            if (this.isCharacterOnTheLeftSide()) {
+                this.moveLeft();
+            }
+            if (this.isCharacterOnTheRightSide()) {
+                this.moveRight();
+            }
+        }
+    }
 
+    playAnimation() {
+        if (this.introductionImageCounter < 10) {
+            this.loadImage(this.IMAGES_INTRODUCTION[this.introductionImageCounter]);
+            this.introductionImageCounter++;
+        } else {
+            this.hadFirstContact = true;
+            this.playAnimationAfterFirstContact();
+        }
+        if (world.character.x < 4800 && this.hadFirstContact == false) {
+            this.introductionImageCounter = 0;
+        }
+    }
 
+    playAnimationAfterFirstContact() {
+        if (this.isDead()) {
+            this.playDeadAnimation();
+        } else if (this.attackCounter % 5 == 0) {
+            if (this.i < this.IMAGES_ATTACK.length) {
+                this.playAttackAnimation();
+            } else {
+                this.finishedAttack();
+            }
+        } else {
+            super.playAnimation(this.IMAGES_SWIMMING);
+            this.attackCounter++;
+        }
+    }
 
+    playDeadAnimation() {
+        super.playAnimation(this.IMAGES_DEATH);
+        this.winningScreenCounter++;
+        if (this.winningScreenCounter > 12) {
+            showWinningScreen();
+        }
+    }
+
+    playAttackAnimation() {
+        this.isAttack = true;
+        this.loadImage(this.IMAGES_ATTACK[this.i]);
+        this.i++;
+    }
+
+    finishedAttack() {
+        this.attackCounter++;
+        this.i = 0;
+        this.isAttack = false;
+    }
+
+    isCharacterOnTheLeftSide() {
+        return world.character.x - world.character.xRightCorrection < this.x - this.xLeftCorrection && this.isAttack == true
+    }
+
+    isCharacterOnTheRightSide() {
+        return world.character.x - world.character.xRightCorrection > this.x - this.xLeftCorrection && this.isAttack == true
+    }
+
+    isCharacterHigher() {
+        return (world.character.y + 0.5 * (world.character.height - world.character.yUpCorrection + world.character.yBottomCorrection) + world.character.yUpCorrection) < (this.y + 0.5 * (this.height - this.yUpCorrection + this.yBottomCorrection) + this.yUpCorrection);
+    }
+
+    isCharacterLower() {
+        return (world.character.y + 0.5 * (world.character.height - world.character.yUpCorrection + world.character.yBottomCorrection) + world.character.yUpCorrection) > (this.y + 0.5 * (this.height - this.yUpCorrection + this.yBottomCorrection) + this.yUpCorrection);
+    }
+
+    moveLeft() {
+        this.otherDirection = false;
+        super.moveLeft();
+    }
+
+    moveRight() {
+        this.otherDirection = true;
+        super.moveRight();
+    }
 }

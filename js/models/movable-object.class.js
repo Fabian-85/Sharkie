@@ -1,6 +1,5 @@
 class MovableObject extends DrawableObject {
-    
-     
+
     speed;
     otherDirection = false;
     energy;
@@ -9,8 +8,6 @@ class MovableObject extends DrawableObject {
     xRightCorrection = 0;
     yUpCorrection = 0;
     yBottomCorrection = 0;
-
-     
 
     moveLeft() {
         this.x -= this.speed;
@@ -24,22 +21,19 @@ class MovableObject extends DrawableObject {
         this.y -= this.speed;
     }
 
-    moveDown(){
+    moveDown() {
         this.y += this.speed;
     }
 
-     
- 
-
     isColliding(object) {
-        return this.x + this.width +this.xRightCorrection > object.x + object.xLeftCorrection && 
-            this.x +this.xLeftCorrection < object.x + object.width + object.xRightCorrection &&
+        return this.x + this.width + this.xRightCorrection > object.x + object.xLeftCorrection &&
+            this.x + this.xLeftCorrection < object.x + object.width + object.xRightCorrection &&
             this.y + this.height + this.yBottomCorrection > object.y + object.yUpCorrection &&
             this.y + this.yUpCorrection < object.y + object.height + object.yBottomCorrection;
     }
+
     hit(dammage = 20) {
         this.energy -= dammage;
-        
         if (this.energy <= 0) {
             this.energy = 0;
         } else {
@@ -53,22 +47,15 @@ class MovableObject extends DrawableObject {
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed/ 1000 // difference in second
-        return timepassed < 3;
+        timepassed = timepassed / 1000 // difference in second
+        return timepassed < 2;
     }
 
     isAboveTheBottomBoundary() {
-        return this.y + this.height +this.yBottomCorrection < 460;
+        return this.y + this.height + this.yBottomCorrection < 460;
     }
 
     isUnderTheTopBoundary() {
-        return this.y +this.yUpCorrection > 15;
+        return this.y + this.yUpCorrection > 15;
     }
-
-    generateRadomNumbers(from, to) {
-        return Math.random() * (to - from) + from;
-    }
-
-    
-
 }
