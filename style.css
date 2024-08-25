@@ -12,17 +12,19 @@
 
 canvas {
     background-color: black;
-    
+
 }
 
 @media only screen and (max-width:710px) {
     canvas {
         width: 100%;
     }
-    .winningscreen{
+
+    #startscreen {
         width: 100%;
     }
-    .losingscreen{
+
+    .losingscreen {
         width: 100%;
     }
 }
@@ -31,10 +33,8 @@ canvas {
     canvas {
         height: 100vh;
     }
-    .winningscreen{
-        height: 100vh;
-    }
-    .losingscreen{
+
+    #startscreen {
         height: 100vh;
     }
 }
@@ -99,7 +99,7 @@ h1 {
     cursor: pointer;
 }
 
-.redButton{
+.redButton {
     height: 80px;
     width: 300px;
     background-color: #ff2300;
@@ -107,10 +107,10 @@ h1 {
     color: white;
     font-size: 45px;
     cursor: pointer;
-    border-color: #ff2300; 
+    border-color: #ff2300;
 }
 
-.greenButton{
+.greenButton {
     height: 80px;
     width: 300px;
     background-color: #00f700;
@@ -118,7 +118,7 @@ h1 {
     color: white;
     font-size: 45px;
     cursor: pointer;
-    border-color: #00f700; 
+    border-color: #00f700;
 }
 
 .character {

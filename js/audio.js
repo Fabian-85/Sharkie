@@ -13,18 +13,26 @@ audios.endboss_music.loop = true;
 function configureSounds() {
     let configureSoundsButton = document.getElementById('configureSoundsButton');
     if (isPlaying) {
-        configureSoundsButton.innerHTML = 'Audio: OFF';
-        configureSoundsButton.classList.add('redButton');
-        configureSoundsButton.classList.remove('greenButton');
+        designAudioOffButton(configureSoundsButton);
         isPlaying = false;
         removeSounds();
     } else {
-        configureSoundsButton.innerHTML = 'Audio: ON';
-        configureSoundsButton.classList.remove('redButton');
-        configureSoundsButton.classList.add('greenButton');
+        designAudioOnButton(configureSoundsButton);
         isPlaying = true;
         addSounds();
     }
+}
+
+function designAudioOffButton(configureSoundsButton) {
+    configureSoundsButton.innerHTML = 'Audio: OFF';
+    configureSoundsButton.classList.add('redButton');
+    configureSoundsButton.classList.remove('greenButton');
+}
+
+function designAudioOnButton(configureSoundsButton) {
+    configureSoundsButton.innerHTML = 'Audio: ON';
+    configureSoundsButton.classList.remove('redButton');
+    configureSoundsButton.classList.add('greenButton');
 }
 
 function addSounds() {
