@@ -6,6 +6,6 @@ class CoinBar extends DrawableObject {
     height = 35;
 
     constructor() {
-        super().loadImage('../img/4. Marcadores/2_icons/icon_coin.png');
+        super().loadImage('./img/4. Marcadores/2_icons/icon_coin.png');
     }
 }

@@ -13,9 +13,10 @@ function init() {
 }
 
 function playGame() {
-  init();
+  audios.background_music.play();
   document.getElementById('canvas').classList.remove('d-none');
   document.getElementById('startscreen').classList.add('d-none');
+  init();
 }
 
 function showControlling() {
@@ -37,11 +38,17 @@ function backToTheMenu() {
 }
 
 function showLosingScreen() {
+  audios.background_music.pause();
+  audios.endboss_music.pause();
+  audios.losing_sound.play();
   this.clearAllIntervals();
   document.getElementById('losingscreen').style.transform = 'translateX(0)';
 }
 
 function showWinningScreen() {
+  audios.background_music.pause();
+  audios.endboss_music.pause();
+  audios.winning_sound.play();
   this.clearAllIntervals();
   document.getElementById('winningscreen').style.transform = 'translateX(0)';
 }

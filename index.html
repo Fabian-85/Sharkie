@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharkie</title>
-    <link rel="shortcut icon" href="../img/icon.png" sizes="16x16 32x32" type="image/x-icon">
+    <link rel="shortcut icon" href="./img/icon.png" sizes="16x16 32x32" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <script src="./js/models/keyboard.class.js"></script>
     <script src="./js/models/drawable-object.class.js"></script>
@@ -28,39 +28,41 @@
     <script src="./js/models/background-objects.class.js"></script>
     <script src="./js/models/level.class.js"></script>
     <script src="./js/levels/level1.js"></script>
-    <script src="js/game.js"></script>
+    <script src="./js/game.js"></script>
+    <script src="./js/audio.js"></script>
 </head>
 
-<body>
+<body onload="removeSounds()">
 
     <div class="game">
         <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
 
         <div id="winningscreen" class="winningscreen">
-            <img src="../img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
+            <img src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
             <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
         </div>
 
         <div id="losingscreen" class="losingscreen">
-            <img src="../img/6.Botones/Tittles/Game Over/Recurso 11.png" alt="">
+            <img src="./img/6.Botones/Tittles/Game Over/Recurso 11.png" alt="">
             <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
         </div>
     </div>
 
     </div>
     <div id="startscreen" class="screen">
-        <div class="headline"> <img class="character" src="../img/1.Sharkie/6.dead/2.Electro_shock/1.png" alt="">
+        <div class="headline"> <img class="character" src="./img/1.Sharkie/6.dead/2.Electro_shock/1.png" alt="">
             <h1>Sharkie</h1>
         </div>
         <div class="buttons">
             <button onclick="playGame()" class="button" type="button">Play</button>
             <button onclick="showControlling()" class="button" type="button">Controlling</button>
+            <button id="configureSoundsButton" onclick="configureSounds()" class="redButton" type="button">Audio: OFF</button>
         </div>
     </div>
 
     <div id="controlling" class="screen d-none">
         <span id="closeControlling" onclick="closeControllingCenter()">X</span>
-        <div class="headline"> <img class="character" src="../img/1.Sharkie/6.dead/2.Electro_shock/1.png" alt="">
+        <div class="headline"> <img class="character" src="./img/1.Sharkie/6.dead/2.Electro_shock/1.png" alt="">
             <h1>Sharkie</h1>
         </div>
         <div class="keyboard-layout">

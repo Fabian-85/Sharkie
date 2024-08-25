@@ -6,6 +6,6 @@ class BubbleBar extends DrawableObject {
     height = 30;
 
     constructor() {
-        super().loadImage('../img/4. Marcadores/2_icons/icon_bubble.png');
+        super().loadImage('./img/4. Marcadores/2_icons/icon_bubble.png');
     }
 }

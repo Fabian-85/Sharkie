@@ -9,16 +9,16 @@ class JellyFish extends MovableObject {
     isMoveDown = false;
 
     IMAGES_SWIMMING = [
-        '../img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png',
-        '../img/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png',
-        '../img/2.Enemy/2 Jelly fish/Regular damage/Lila 3.png',
-        '../img/2.Enemy/2 Jelly fish/Regular damage/Lila 4.png'
+        './img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png',
+        './img/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png',
+        './img/2.Enemy/2 Jelly fish/Regular damage/Lila 3.png',
+        './img/2.Enemy/2 Jelly fish/Regular damage/Lila 4.png'
     ];
     IMAGES_DEATH = [
-        '../img/2.Enemy/2 Jelly fish/Dead/Lila/L1.png',
-        '../img/2.Enemy/2 Jelly fish/Dead/Lila/L2.png',
-        '../img/2.Enemy/2 Jelly fish/Dead/Lila/L3.png',
-        '../img/2.Enemy/2 Jelly fish/Dead/Lila/L4.png',
+        './img/2.Enemy/2 Jelly fish/Dead/Lila/L1.png',
+        './img/2.Enemy/2 Jelly fish/Dead/Lila/L2.png',
+        './img/2.Enemy/2 Jelly fish/Dead/Lila/L3.png',
+        './img/2.Enemy/2 Jelly fish/Dead/Lila/L4.png',
     ];
 
     constructor(x = 900) {

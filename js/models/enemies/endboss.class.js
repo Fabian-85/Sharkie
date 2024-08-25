@@ -15,54 +15,54 @@ class Endboss extends MovableObject {
     introductionImageCounter = 0;
     attackCounter = 1;
     i = 0;
-    winningScreenCounter = 0;
+    winningScreenCounter = 0; 
+    firstTimePlay = true;
 
     IMAGES_SWIMMING = [
-        '../img/2.Enemy/3 Final Enemy/2.floating/1.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/2.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/3.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/4.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/5.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/6.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/7.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/8.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/9.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/10.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/11.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/12.png',
-        '../img/2.Enemy/3 Final Enemy/2.floating/13.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/1.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/2.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/3.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/4.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/5.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/6.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/7.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/8.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/9.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/10.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/11.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/12.png',
+        './img/2.Enemy/3 Final Enemy/2.floating/13.png',
     ];
 
     IMAGES_ATTACK = [
-        '../img/2.Enemy/3 Final Enemy/Attack/1.png',
-        '../img/2.Enemy/3 Final Enemy/Attack/2.png',
-        '../img/2.Enemy/3 Final Enemy/Attack/3.png',
-        '../img/2.Enemy/3 Final Enemy/Attack/4.png',
-        '../img/2.Enemy/3 Final Enemy/Attack/5.png',
-        '../img/2.Enemy/3 Final Enemy/Attack/6.png',
+        './img/2.Enemy/3 Final Enemy/Attack/1.png',
+        './img/2.Enemy/3 Final Enemy/Attack/2.png',
+        './img/2.Enemy/3 Final Enemy/Attack/3.png',
+        './img/2.Enemy/3 Final Enemy/Attack/4.png',
+        './img/2.Enemy/3 Final Enemy/Attack/5.png',
+        './img/2.Enemy/3 Final Enemy/Attack/6.png',
     ];
 
     IMAGES_INTRODUCTION = [
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/2.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/3.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/4.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/5.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/6.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/7.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/8.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/9.png',
-        '../img/2.Enemy/3 Final Enemy/1.Introduce/10.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/2.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/3.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/4.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/5.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/6.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/7.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/8.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/9.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/10.png',
 
     ];
 
     IMAGES_DEATH = [
-        '../img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
-        '../img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
-        '../img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
-        '../img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
-        '../img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
-
+        './img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
+        './img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
+        './img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        './img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
     ]
 
     constructor() {
@@ -73,8 +73,8 @@ class Endboss extends MovableObject {
 
     animate() {
         setInterval(() => this.move(), 1000 / 60);
+        setInterval(() => this.playAudioForEndBoss(), 1000 / 60);
         setInterval(() => this.playAnimation(), 200);
-
     }
 
     loadImages() {
@@ -110,6 +110,14 @@ class Endboss extends MovableObject {
         }
         if (world.character.x < 4800 && this.hadFirstContact == false) {
             this.introductionImageCounter = 0;
+        }
+    }
+
+    playAudioForEndBoss(){
+        if(this.hadFirstContact && this.firstTimePlay){
+            audios.background_music.pause();
+            audios.endboss_music.play();
+            this.firstTimePlay = false;
         }
     }
 

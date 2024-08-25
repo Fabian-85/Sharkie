@@ -11,17 +11,17 @@ class DangerousjellyFish extends MovableObject {
     speed = 1;
 
     IMAGES_SWIMMING = [
-        '../img/2.Enemy/2 Jelly fish/Súper dangerous/Green 1.png',
-        '../img/2.Enemy/2 Jelly fish/Súper dangerous/Green 2.png',
-        '../img/2.Enemy/2 Jelly fish/Súper dangerous/Green 3.png',
-        '../img/2.Enemy/2 Jelly fish/Súper dangerous/Green 4.png'
+        './img/2.Enemy/2 Jelly fish/Súper dangerous/Green 1.png',
+        './img/2.Enemy/2 Jelly fish/Súper dangerous/Green 2.png',
+        './img/2.Enemy/2 Jelly fish/Súper dangerous/Green 3.png',
+        './img/2.Enemy/2 Jelly fish/Súper dangerous/Green 4.png'
     ];
 
     IMAGES_DEATH = [
-        'img/2.Enemy/2 Jelly fish/Dead/green/g1.png',
-        'img/2.Enemy/2 Jelly fish/Dead/green/g2.png',
-        'img/2.Enemy/2 Jelly fish/Dead/green/g3.png',
-        'img/2.Enemy/2 Jelly fish/Dead/green/g4.png',
+        './img/2.Enemy/2 Jelly fish/Dead/green/g1.png',
+        './img/2.Enemy/2 Jelly fish/Dead/green/g2.png',
+        './img/2.Enemy/2 Jelly fish/Dead/green/g3.png',
+        './img/2.Enemy/2 Jelly fish/Dead/green/g4.png',
     ];
 
     constructor(x = 300) {

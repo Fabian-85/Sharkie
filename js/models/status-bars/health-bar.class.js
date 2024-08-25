@@ -6,6 +6,6 @@ class HealthBar extends DrawableObject {
     height = 50;
 
     constructor() {
-        super().loadImage('../img/4. Marcadores/2_icons/icon_hearth.png');
+        super().loadImage('./img/4. Marcadores/2_icons/icon_hearth.png');
     }
 }

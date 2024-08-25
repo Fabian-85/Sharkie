@@ -12,6 +12,31 @@
 
 canvas {
     background-color: black;
+    
+}
+
+@media only screen and (max-width:710px) {
+    canvas {
+        width: 100%;
+    }
+    .winningscreen{
+        width: 100%;
+    }
+    .losingscreen{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height:480px) {
+    canvas {
+        height: 100vh;
+    }
+    .winningscreen{
+        height: 100vh;
+    }
+    .losingscreen{
+        height: 100vh;
+    }
 }
 
 body {
@@ -72,6 +97,28 @@ h1 {
     color: white;
     font-size: 45px;
     cursor: pointer;
+}
+
+.redButton{
+    height: 80px;
+    width: 300px;
+    background-color: #ff2300;
+    border-radius: 10px;
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+    border-color: #ff2300; 
+}
+
+.greenButton{
+    height: 80px;
+    width: 300px;
+    background-color: #00f700;
+    border-radius: 10px;
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+    border-color: #00f700; 
 }
 
 .character {

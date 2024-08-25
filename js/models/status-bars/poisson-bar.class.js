@@ -6,6 +6,6 @@ class PoissonBar extends DrawableObject {
     height = 45;
 
     constructor() {
-        super().loadImage('../img/4. Marcadores/2_icons/icon_poisson.png');
+        super().loadImage('./img/4. Marcadores/2_icons/icon_poisson.png');
     }
 }
