@@ -3,13 +3,15 @@ let world;
 let keyboard = new Keyboard();
 
 function init() {
-  canvas = document.getElementById("canvas");
+  addTouchButtonsForSmallDisplay();
+  canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   setLevel();
   world.level = level1;
   world.draw();
   world.run();
   world.addBubble();
+  addTouchEvents();
 }
 
 function playGame() {
@@ -59,6 +61,12 @@ function clearAllIntervals() {
   }
 }
 
+function addTouchButtonsForSmallDisplay(){
+  if(window.innerWidth<720){
+    document.getElementById('touchableButtons').classList.remove('d-none');
+  }
+}
+
 function generateRadomNumbers(from, to) {
   return Math.random() * (to - from) + from;
 }
@@ -104,3 +112,17 @@ document.addEventListener('keyup', (event) => {
     keyboard.M = false;
   }
 });
+function addTouchEvents(){
+document.getElementById('left').addEventListener('touchstart', (event) => keyboard.LEFT = true);
+document.getElementById('top').addEventListener('touchstart', (event) => keyboard.UP = true);
+document.getElementById('right').addEventListener('touchstart', (event) => keyboard.RIGHT = true);
+document.getElementById('bubbleBotton').addEventListener('touchstart', (event) => keyboard.SPACE = true);
+document.getElementById('poissonBubbleBotton').addEventListener('touchstart', (event) => keyboard.M = true);
+document.getElementById('bottom').addEventListener('touchstart', (event) => keyboard.DOWN = true);
+document.getElementById('left').addEventListener('touchend', (event) => keyboard.LEFT = false);
+document.getElementById('top').addEventListener('touchend', (event) => keyboard.UP = false);
+document.getElementById('right').addEventListener('touchend', (event) => keyboard.RIGHT = false);
+document.getElementById('bottom').addEventListener('touchend', (event) => keyboard.DOWN = false);
+document.getElementById('bubbleBotton').addEventListener('touchend', (event) => keyboard.SPACE = false);
+document.getElementById('poissonBubbleBotton').addEventListener('touchend', (event) => keyboard.M = false);
+}

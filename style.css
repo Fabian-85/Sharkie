@@ -19,23 +19,20 @@ canvas {
     canvas {
         width: 100%;
     }
-
-    #startscreen {
-        width: 100%;
-    }
-
-    .losingscreen {
-        width: 100%;
-    }
 }
 
 @media only screen and (max-height:480px) {
     canvas {
         height: 100vh;
     }
+}
 
-    #startscreen {
-        height: 100vh;
+@media (max-width:350px) {
+
+    .redButton,
+    .greenButton,
+    .button {
+        width: 280px !important;
     }
 }
 
@@ -44,11 +41,14 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('./img/7.BackgroundImages/6.jpg');
+    background-image:
+        url('img/3. Background/Layers/4.Fondo 2/D2.png'),
+        url('img/3. Background/Layers/3.Fondo 1/D2.png'),
+        url('img/3. Background/Layers/2. Floor/D2.png'),
+        url('img/3. Background/Layers/5. Water/D1.png');
+    background-position: center;
     background-size: cover;
-    background-position: bottom;
     flex-direction: column;
-    gap: 10px;
 }
 
 .d-none {
@@ -56,8 +56,8 @@ body {
 }
 
 .screen {
-    height: 480px;
-    width: 720px;
+    height: 100vh;
+    width: 100%;
     background-image:
         url('img/3. Background/Layers/4.Fondo 2/D2.png'),
         url('img/3. Background/Layers/3.Fondo 1/D2.png'),
@@ -156,18 +156,19 @@ h1 {
 }
 
 .winningscreen {
-    height: 480px;
-    width: 720px;
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
     transform: translateX(100%);
     transition: all 1s ease-in-out;
 }
 
 .winningscreen img {
-    height: 480px;
-    width: 720px;
+    height: 100%;
+    width: 100%;
 }
 
 .winningscreen button {
@@ -181,15 +182,16 @@ h1 {
     transform: translateX(100%);
     transition: all 1s ease-in-out;
     position: absolute;
-    height: 480px;
-    width: 720px;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
     top: 0;
     left: 0;
 }
 
 .losingscreen img {
-    height: 360px;
-    width: 720px;
+    height: 100%;
+    width: 100%;
 }
 
 .losingscreen button {
@@ -198,3 +200,39 @@ h1 {
     left: 50%;
     transform: translateX(-50%);
 }
+
+.touchableButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 98%;
+    transform: translateY(-210%);
+}
+
+.touchableButtons button {
+    width: 40px;
+    height: 40px;
+    color: blueviolet;
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: black;
+    border-radius: 30px;
+}
+
+#top{
+    transform: translateY(-100%) rotate(270deg);
+}
+
+#bottom{
+    transform: translate(-100%,100%) rotate(90deg);
+}
+
+#right{
+    transform: translateX(-100%);
+}
+
+#left{
+    transform: rotate(180deg);
+}
+
+ 

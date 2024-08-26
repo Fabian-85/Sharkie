@@ -37,7 +37,10 @@
     <div class="game">
         <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
 
-       
+        <div id="winningscreen" class="winningscreen">
+            <img src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
+            <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
+        </div>
 
         <div id="losingscreen" class="losingscreen">
             <img src="./img/6.Botones/Tittles/Game Over/Recurso 11.png" alt="">
@@ -45,13 +48,21 @@
         </div>
     </div>
 
-    </div>
-    
-    <div id="winningscreen" class="winningscreen">
-        <img src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
-        <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
+    <div id="touchableButtons" class="touchableButtons d-none">
+        <div class="moveButtons">
+            <button id="left">&#10140;</button>
+            <button id="top">&#10140;</button>
+            <button id="bottom">&#10140;</button>
+            <button id="right">&#10140;</button>
+        </div>
+        <div>
+            <button id="bubbleBotton">B</button>
+            <button id="poissonBubbleBotton">P</button>
+        </div>
+
     </div>
 
+    </div>
     <div id="startscreen" class="screen">
         <div class="headline"> <img class="character" src="./img/1.Sharkie/6.dead/2.Electro_shock/1.png" alt="">
             <h1>Sharkie</h1>
@@ -59,7 +70,8 @@
         <div class="buttons">
             <button onclick="playGame()" class="button" type="button">Play</button>
             <button onclick="showControlling()" class="button" type="button">Controlling</button>
-            <button id="configureSoundsButton" onclick="configureSounds()" class="redButton" type="button">Audio: OFF</button>
+            <button id="configureSoundsButton" onclick="configureSounds()" class="redButton" type="button">Audio:
+                OFF</button>
         </div>
     </div>
 

@@ -26,11 +26,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addAllStatusBarsToWorld();
         let self = this;
-        requestAnimationFrame(
-            function () {
-                self.draw();
-            }
-        );
+        requestAnimationFrame(() => self.draw());
     }
 
     run() {
