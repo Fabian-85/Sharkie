@@ -24,7 +24,12 @@ class MovableObject extends DrawableObject {
     moveDown() {
         this.y += this.speed;
     }
-
+    
+     /**
+     * checks if this object is colliding with another object
+     * @param {Object} object - The object to check collision against
+     * @returns {boolean} - Returns true if this object is colliding with the specified object, otherwise false
+     */
     isColliding(object) {
         return this.x + this.width + this.xRightCorrection > object.x + object.xLeftCorrection &&
             this.x + this.xLeftCorrection < object.x + object.width + object.xRightCorrection &&
@@ -32,6 +37,11 @@ class MovableObject extends DrawableObject {
             this.y + this.yUpCorrection < object.y + object.height + object.yBottomCorrection;
     }
 
+    /**
+     * Reduces the energy of the object by the specified damage value and
+     * updates the last hit time if the object is not dead
+     * @param {number} dammage - amount of damage to be added to the object.
+     */
     hit(dammage = 20) {
         this.energy -= dammage;
         if (this.energy <= 0) {
@@ -45,6 +55,11 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+     /**
+     * Checks if object is hurt  
+     * A object has been hurt if the last was more than two seconds
+     * @returns {boolean} - Returns true if the object is hurt, otherwise false.
+     */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000 // difference in second

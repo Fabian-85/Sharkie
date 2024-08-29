@@ -12,6 +12,11 @@ class World {
     lastThrowBubbleTime = 0;
     camera_x = 0;
 
+     /**
+     * represents the world
+     * @param {*} canvas - in this canvas element is the game drawn
+     * @param {Keyboard} keyboard - react to keyboard input for play the game
+     */
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -19,6 +24,9 @@ class World {
         this.character = new Character();
     }
 
+    /**
+     * draw all objects into the canvas and call this function self again
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -29,6 +37,9 @@ class World {
         requestAnimationFrame(() => self.draw());
     }
 
+    /**
+     * checks whether collisions with two objects take place
+     */
     run() {
         setInterval(() => {
             this.checkCollisionsWithEnemies();
@@ -48,6 +59,9 @@ class World {
         this.addToMap(this.character);
     }
 
+    /**
+    * draw four objects as a statusbar
+    */
     addAllStatusBarsToWorld() {
         this.ctx.font = "25px Luckiest Guy";
         this.ctx.fillText(this.character.energy, 615, 50);
@@ -60,6 +74,9 @@ class World {
         this.addToMap(this.coinBar);
     }
 
+    /**
+    * check collision beetween character and enemies
+    */
     checkCollisionsWithEnemies() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy) && this.character.isHurt() == false && !enemy.isDead() && !this.character.isDead()) {
@@ -69,6 +86,9 @@ class World {
         });
     }
 
+    /**
+    * check collision beetween character and bubbles  
+    */
     checkCollisionsWithBubbleAndCharacter() {
         for (let i = 0; i < this.level.bubbles.length; i++) {
             const bubble = this.level.bubbles[i];
@@ -79,6 +99,9 @@ class World {
         }
     }
 
+    /**
+    * check collision beetween bubbles and enemies  
+    */
     checkCollisionsWithBubbleAndEnemy() {
         for (let i = 0; i < this.level.bubbles.length; i++) {
             const bubble = this.level.bubbles[i];
@@ -92,6 +115,9 @@ class World {
         }
     }
 
+    /**
+    * check collision beetween character and poisson objects
+    */
     checkCollisionsWithPoisson() {
         for (let i = 0; i < this.level.poissons.length; i++) {
             const poisson = this.level.poissons[i];
@@ -102,6 +128,9 @@ class World {
         }
     }
 
+    /**
+    * check collision beetween character and coins
+    */
     checkCollisionsWithCoins() {
         for (let i = 0; i < this.level.coins.length; i++) {
             const coin = this.level.coins[i];
@@ -112,6 +141,9 @@ class World {
         }
     }
 
+    /**
+     * add every five seconds five bubbles randomly 400px before and after the character into the world
+     */
     addBubble() {
         setInterval(() => {
             for (let i = 0; i < 5; i++) {
@@ -120,6 +152,10 @@ class World {
         }, 5000);
     }
 
+    /**
+     * add an object to the map and flipping and mirror the object if ohterDirection is true
+     * @param {*} object - the object to add to the map
+     */
     addToMap(object) {
         if (object.otherDirection == true) {
             this.flipImage(object);

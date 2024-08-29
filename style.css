@@ -10,14 +10,9 @@
     color: white;
 }
 
-canvas {
-    background-color: black;
-
-}
-
 @media only screen and (max-width:710px) {
     canvas {
-        width: 100%;
+        width: 100vw;
     }
 }
 
@@ -28,12 +23,27 @@ canvas {
 }
 
 @media (max-width:350px) {
-
-    .redButton,
-    .greenButton,
-    .button {
+    .redButton, .greenButton,.button {
         width: 280px !important;
     }
+}
+
+@media (max-height:430px) {
+    .button, .redButton, .greenButton {
+        height: 70px !important;
+    }
+}
+
+@media (max-height:390px) {
+    .button, .redButton, .greenButton {
+        font-size: 30px !important;
+        height: 60px !important;
+    }
+}
+
+canvas {
+    background-color: black;
+
 }
 
 body {
@@ -58,15 +68,12 @@ body {
 .screen {
     height: 100vh;
     width: 100%;
-    background-image:
-        url('img/3. Background/Layers/4.Fondo 2/D2.png'),
-        url('img/3. Background/Layers/3.Fondo 1/D2.png'),
-        url('img/3. Background/Layers/2. Floor/D2.png'),
-        url('img/3. Background/Layers/5. Water/D1.png');
     background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 h1 {
@@ -171,11 +178,15 @@ h1 {
     width: 100%;
 }
 
-.winningscreen button {
+.winningscreen div {
     position: absolute;
-    bottom: 40px;
+    bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.winningscreen button {
+    margin-bottom: 5px;
 }
 
 .losingscreen {
@@ -194,19 +205,24 @@ h1 {
     width: 100%;
 }
 
-.losingscreen button {
+.losingscreen div {
     position: absolute;
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
 }
 
+.losingscreen button {
+    margin-bottom: 5px;
+}
+
 .touchableButtons {
+    position: absolute;
+    bottom: 45px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     width: 98%;
-    transform: translateY(-210%);
 }
 
 .touchableButtons button {
@@ -219,20 +235,32 @@ h1 {
     border-radius: 30px;
 }
 
-#top{
+#top {
     transform: translateY(-100%) rotate(270deg);
 }
 
-#bottom{
-    transform: translate(-100%,100%) rotate(90deg);
+#bottom {
+    transform: translate(-100%, 100%) rotate(90deg);
 }
 
-#right{
+#right {
     transform: translateX(-100%);
 }
 
-#left{
+#left {
     transform: rotate(180deg);
 }
 
- 
+.turnScreen{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(14, 65, 167, 0.9);
+    font-size: 80px;
+}

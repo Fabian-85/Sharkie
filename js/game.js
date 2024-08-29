@@ -2,6 +2,9 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+/**
+ * Initialize the game 
+ */
 function init() {
   addTouchButtonsForSmallDisplay();
   canvas = document.getElementById('canvas');
@@ -21,16 +24,31 @@ function playGame() {
   init();
 }
 
+function playNewGame() {
+  document.getElementById('winningscreen').style.transform = 'translateX(100%)';
+  document.getElementById('losingscreen').style.transform = 'translateX(100%)';
+  playGame();
+}
+
+/**
+ * show controlling center
+ */
 function showControlling() {
   document.getElementById('controlling').classList.remove('d-none');
   document.getElementById('startscreen').classList.add('d-none');
 }
 
+/**
+ * go back to menu from controlling center
+ */
 function closeControllingCenter() {
   document.getElementById('startscreen').classList.remove('d-none');
   document.getElementById('controlling').classList.add('d-none');
 }
 
+/**
+ * go back to menu after a game
+ */
 function backToTheMenu() {
   document.getElementById('canvas').classList.add('d-none');
   document.getElementById('winningscreen').style.transform = 'translateX(100%)';
@@ -44,6 +62,7 @@ function showLosingScreen() {
   audios.endboss_music.pause();
   audios.losing_sound.play();
   this.clearAllIntervals();
+  turnScreeen();
   document.getElementById('losingscreen').style.transform = 'translateX(0)';
 }
 
@@ -52,6 +71,7 @@ function showWinningScreen() {
   audios.endboss_music.pause();
   audios.winning_sound.play();
   this.clearAllIntervals();
+  turnScreeen();
   document.getElementById('winningscreen').style.transform = 'translateX(0)';
 }
 
@@ -61,14 +81,27 @@ function clearAllIntervals() {
   }
 }
 
-function addTouchButtonsForSmallDisplay(){
-  if(window.innerWidth<720){
+function addTouchButtonsForSmallDisplay() {
+  if (window.innerWidth < 720) {
     document.getElementById('touchableButtons').classList.remove('d-none');
   }
 }
 
 function generateRadomNumbers(from, to) {
   return Math.random() * (to - from) + from;
+}
+
+
+function turnScreeen() {
+  setInterval(() => {
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
+    if (screenHeight > screenWidth) {
+      document.getElementById('turnScreeenContainer').classList.remove('d-none');
+    } else {
+      document.getElementById('turnScreeenContainer').classList.add('d-none');
+    }
+  }, 100);
 }
 
 document.addEventListener('keydown', (event) => {
@@ -112,17 +145,18 @@ document.addEventListener('keyup', (event) => {
     keyboard.M = false;
   }
 });
-function addTouchEvents(){
-document.getElementById('left').addEventListener('touchstart', (event) => keyboard.LEFT = true);
-document.getElementById('top').addEventListener('touchstart', (event) => keyboard.UP = true);
-document.getElementById('right').addEventListener('touchstart', (event) => keyboard.RIGHT = true);
-document.getElementById('bubbleBotton').addEventListener('touchstart', (event) => keyboard.SPACE = true);
-document.getElementById('poissonBubbleBotton').addEventListener('touchstart', (event) => keyboard.M = true);
-document.getElementById('bottom').addEventListener('touchstart', (event) => keyboard.DOWN = true);
-document.getElementById('left').addEventListener('touchend', (event) => keyboard.LEFT = false);
-document.getElementById('top').addEventListener('touchend', (event) => keyboard.UP = false);
-document.getElementById('right').addEventListener('touchend', (event) => keyboard.RIGHT = false);
-document.getElementById('bottom').addEventListener('touchend', (event) => keyboard.DOWN = false);
-document.getElementById('bubbleBotton').addEventListener('touchend', (event) => keyboard.SPACE = false);
-document.getElementById('poissonBubbleBotton').addEventListener('touchend', (event) => keyboard.M = false);
+
+function addTouchEvents() {
+  document.getElementById('left').addEventListener('touchstart', (event) => keyboard.LEFT = true);
+  document.getElementById('top').addEventListener('touchstart', (event) => keyboard.UP = true);
+  document.getElementById('right').addEventListener('touchstart', (event) => keyboard.RIGHT = true);
+  document.getElementById('bubbleBotton').addEventListener('touchstart', (event) => keyboard.SPACE = true);
+  document.getElementById('poissonBubbleBotton').addEventListener('touchstart', (event) => keyboard.M = true);
+  document.getElementById('bottom').addEventListener('touchstart', (event) => keyboard.DOWN = true);
+  document.getElementById('left').addEventListener('touchend', (event) => keyboard.LEFT = false);
+  document.getElementById('top').addEventListener('touchend', (event) => keyboard.UP = false);
+  document.getElementById('right').addEventListener('touchend', (event) => keyboard.RIGHT = false);
+  document.getElementById('bottom').addEventListener('touchend', (event) => keyboard.DOWN = false);
+  document.getElementById('bubbleBotton').addEventListener('touchend', (event) => keyboard.SPACE = false);
+  document.getElementById('poissonBubbleBotton').addEventListener('touchend', (event) => keyboard.M = false);
 }

@@ -32,19 +32,25 @@
     <script src="./js/audio.js"></script>
 </head>
 
-<body onload="removeSounds()">
+<body onload="removeSounds(); turnScreeen()">
 
     <div class="game">
         <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
 
         <div id="winningscreen" class="winningscreen">
             <img src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
-            <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
+            <div>
+                <button onclick="playNewGame()" class="button" type="button">PLAY AGIN</button>
+                <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
+            </div>
         </div>
 
         <div id="losingscreen" class="losingscreen">
             <img src="./img/6.Botones/Tittles/Game Over/Recurso 11.png" alt="">
-            <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
+            <div>
+                <button onclick="playNewGame()" class="button">PLAY AGAIN</button>
+                <button onclick="backToTheMenu()" class="button">BACK TO MENU</button>
+            </div>
         </div>
     </div>
 
@@ -88,6 +94,10 @@
             <div> <span>BUBBLE: </span> <span>WHITE BAR </span> </div>
             <div> <span>POISSON BUBBLE:</span> <span>M </span> </div>
         </div>
+    </div>
+
+    <div id="turnScreeenContainer" class="turnScreen d-none">
+       PLEASE TURN YOUR SCREEN
     </div>
 
 </body>

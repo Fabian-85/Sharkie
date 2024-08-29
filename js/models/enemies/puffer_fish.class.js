@@ -23,6 +23,11 @@ class PufferFish extends MovableObject {
         './img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 3 (can animate by going down to the floor after the Fin Slap attack).png'
     ]
 
+    /**
+     * represents a puffer fish
+     * @param {number} x - x-position in canvas 
+     * @constructor
+     */
     constructor(x) {
         super().loadImage(this.IMAGES_SWIMMING[0]);
         this.loadImages();
@@ -37,6 +42,9 @@ class PufferFish extends MovableObject {
         setInterval(() => this.playAnimation(), 200);
     }
 
+    /**
+     * dead fish falls to the bottom. Otherwise, moves left.
+     */
     move() {
         if (this.isDead()) {
             this.fallToTheBottom();
@@ -53,6 +61,9 @@ class PufferFish extends MovableObject {
         }
     }
 
+    /**
+     * save all images in a image cache
+     */
     loadImages() {
         super.loadImages(this.IMAGES_SWIMMING);
         super.loadImages(this.IMAGE_DEATH);
@@ -68,6 +79,10 @@ class PufferFish extends MovableObject {
         return this.x - world.character.x;
     }
 
+    /** 
+     * fish only moves left if the distance < 750px. 
+     * if the fish moved one time is distance doesn't matter
+     */
     moveLeft() {
         if (this.distanceToCharacter() < 750 || this.firstMove) {
             super.moveLeft();

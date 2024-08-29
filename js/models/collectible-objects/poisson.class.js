@@ -13,6 +13,11 @@ class Poisson extends MovableObject {
         './img/4. Marcadores/Posión/Animada/8.png'
     ];
 
+    /**
+     * represents a poisson object
+     * generate randomly a poisson in the world
+     * @constructor
+     */
     constructor() {
         super().loadImage('./img/4. Marcadores/Posión/Animada/1.png');
         this.loadImages(this.IMAGES);
@@ -24,6 +29,9 @@ class Poisson extends MovableObject {
 
     }
 
+    /**
+     * play animation of poisson
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES);

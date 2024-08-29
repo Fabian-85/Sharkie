@@ -1,5 +1,9 @@
-let level;
+let level1;
 
+
+/**
+ * create all level dependent objects
+ */
 function setLevel() {
     let enemies = createEnemies();
     let backgroundImages = createBackgroundImages();
@@ -9,6 +13,9 @@ function setLevel() {
     level1 = new Level(enemies, backgroundImages, poissons, coins, bubbles);
 }
 
+/**
+ * create all enemies
+ */
 function createEnemies() {
     return [
         new Endboss(),
@@ -39,6 +46,9 @@ function createEnemies() {
     ];
 }
 
+/**
+ * create all background images
+ */
 function createBackgroundImages() {
     return [
         new BackgroundObject('./img/3. Background/Layers/5. Water/D2.png', -719),
@@ -94,6 +104,9 @@ function createBackgroundImages() {
     ];
 }
 
+/**
+ * create all 50 coins
+ */
 function createCoins() {
     let coins = [];
     for (let i = 0; i < 50; i++) {
@@ -102,9 +115,12 @@ function createCoins() {
     return coins;
 }
 
+/**
+ * create all 50 poissson objects
+ */
 function createPoissons() {
     let poissons = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 6; i++) {
         poissons.push(new Poisson());
     }
     return poissons;

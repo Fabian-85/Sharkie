@@ -10,12 +10,12 @@ class Endboss extends MovableObject {
     yUpCorrection = 250;
     yBottomCorrection = -100;
     hadFirstContact = false;
-    speed = 2;
+    speed = 3;
     isAttack = false;
     introductionImageCounter = 0;
     attackCounter = 1;
     i = 0;
-    winningScreenCounter = 0; 
+    winningScreenCounter = 0;
     firstTimePlay = true;
 
     IMAGES_SWIMMING = [
@@ -65,6 +65,10 @@ class Endboss extends MovableObject {
         './img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
     ]
 
+    /**
+    * represents a endboss
+    * @constructor
+    */
     constructor() {
         super().loadImage(this.IMAGES_INTRODUCTION[0]);
         this.loadImages();
@@ -77,6 +81,9 @@ class Endboss extends MovableObject {
         setInterval(() => this.playAnimation(), 200);
     }
 
+    /**
+    * save all images in a image cache
+    */
     loadImages() {
         super.loadImages(this.IMAGES_SWIMMING);
         super.loadImages(this.IMAGES_INTRODUCTION);
@@ -84,6 +91,10 @@ class Endboss extends MovableObject {
         super.loadImages(this.IMAGES_ATTACK);
     }
 
+    /**
+    * the endboss move to the same height as the character
+    * all second the endboss move left or right to the character (if isAttack is true)
+    */
     move() {
         if (this.hadFirstContact) {
             if (this.isCharacterHigher()) {
@@ -91,15 +102,19 @@ class Endboss extends MovableObject {
             } else if (this.isCharacterLower()) {
                 this.moveDown();
             }
-            if (this.isCharacterOnTheLeftSide()) {
+            if (this.canMoveLeft()) {
                 this.moveLeft();
             }
-            if (this.isCharacterOnTheRightSide()) {
+            if (this.canMoveRight()) {
                 this.moveRight();
             }
         }
     }
 
+    /**
+    * play introduction animation until first contact is made
+    * then plays other animations  
+    */
     playAnimation() {
         if (this.introductionImageCounter < 10) {
             this.loadImage(this.IMAGES_INTRODUCTION[this.introductionImageCounter]);
@@ -113,14 +128,19 @@ class Endboss extends MovableObject {
         }
     }
 
-    playAudioForEndBoss(){
-        if(this.hadFirstContact && this.firstTimePlay){
+    playAudioForEndBoss() {
+        if (this.hadFirstContact && this.firstTimePlay) {
             audios.background_music.pause();
             audios.endboss_music.play();
             this.firstTimePlay = false;
         }
     }
 
+    /**
+     * control the animation sequence after the first contact
+     * switch between swimming, attacking, and death animations
+     * every fifth time the attack animation is played
+     */
     playAnimationAfterFirstContact() {
         if (this.isDead()) {
             this.playDeadAnimation();
@@ -136,6 +156,10 @@ class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * play the death animation of the end boss and
+     * show the winning screen after a specific time
+     */
     playDeadAnimation() {
         super.playAnimation(this.IMAGES_DEATH);
         this.winningScreenCounter++;
@@ -156,11 +180,11 @@ class Endboss extends MovableObject {
         this.isAttack = false;
     }
 
-    isCharacterOnTheLeftSide() {
+    canMoveLeft() {
         return world.character.x - world.character.xRightCorrection < this.x - this.xLeftCorrection && this.isAttack == true
     }
 
-    isCharacterOnTheRightSide() {
+    canMoveRight() {
         return world.character.x - world.character.xRightCorrection > this.x - this.xLeftCorrection && this.isAttack == true
     }
 

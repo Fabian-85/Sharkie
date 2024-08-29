@@ -2,7 +2,7 @@ class JellyFish extends MovableObject {
 
     width = 100;
     height = 100;
-    speed;
+    speed = 2;
     energy = 20;
     yUpCorrection = 5;
     yBottomCorrection = -5;
@@ -21,12 +21,16 @@ class JellyFish extends MovableObject {
         './img/2.Enemy/2 Jelly fish/Dead/Lila/L4.png',
     ];
 
+    /**
+     * represents a jelly fish
+     * @param {number} x - x-position in canvas 
+     * @constructor
+     */
     constructor(x = 900) {
         super().loadImage(this.IMAGES_SWIMMING[0]);
         this.loadImages();
         this.x = x;
         this.y = generateRadomNumbers(0, 380);
-        this.speed = generateRadomNumbers(2, 3);
         this.animate();
     }
 
@@ -35,6 +39,9 @@ class JellyFish extends MovableObject {
         setInterval(() => this.playAnimation(), 200);
     }
 
+    /**
+     * save all images in a image cache
+     */
     loadImages() {
         super.loadImages(this.IMAGES_SWIMMING);
         super.loadImages(this.IMAGES_DEATH);
@@ -56,6 +63,10 @@ class JellyFish extends MovableObject {
         }
     }
 
+    /**
+     * jelly fishs move up until the the top boundary and they go down until the bottom
+     * This is repeated again and again
+     */
     moveUpAndDown() {
         if (!this.isMoveDown) {
             this.moveUp();

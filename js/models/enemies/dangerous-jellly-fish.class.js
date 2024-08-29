@@ -8,7 +8,7 @@ class DangerousjellyFish extends MovableObject {
     firstMove = false;
     yUpCorrection = 5;
     yBottomCorrection = -5;
-    speed = 1;
+    speed = 1.5;
 
     IMAGES_SWIMMING = [
         './img/2.Enemy/2 Jelly fish/Súper dangerous/Green 1.png',
@@ -24,7 +24,12 @@ class DangerousjellyFish extends MovableObject {
         './img/2.Enemy/2 Jelly fish/Dead/green/g4.png',
     ];
 
-    constructor(x = 300) {
+     /**
+     * represents a dangerous jelly fish
+     * @param {number} x - x-position in canvas 
+     * @constructor
+     */
+    constructor(x) {
         super().loadImage(this.IMAGES_SWIMMING[0]);
         this.loadImages();
         this.x = x;
@@ -37,6 +42,9 @@ class DangerousjellyFish extends MovableObject {
         setInterval(() => this.playAnimation(), 200);
     }
 
+    /**
+    * save all images in a image cache
+    */
     loadImages() {
         super.loadImages(this.IMAGES_SWIMMING);
         super.loadImages(this.IMAGES_DEATH);
@@ -50,6 +58,9 @@ class DangerousjellyFish extends MovableObject {
         }
     }
 
+     /**
+     *  the dangerous jelly fish move always to the character
+     */
     moveToTheCharacter() {
         if (this.distanceToCharacter() < 1000 || this.firstMove) {
             this.firstMove = true;

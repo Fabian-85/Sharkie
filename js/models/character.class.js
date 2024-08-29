@@ -5,17 +5,21 @@ class Character extends MovableObject {
     width = 250;
     height = 250;
     energy = 100;
-    speed = 15.5;
+    speed = 3.5;
     xLeftCorrection = 50;
     xRightCorrection = -44;
     yUpCorrection = 120;
     yBottomCorrection = -60;
-    bubbleCount = 0;
-    poissonCount = 0;
+    bubbleCount = 100;
+    poissonCount = 100;
     coinCount = 0;
     lastThrowBubbleTime = 0;
     standTime = 0;
     losingScreenCounter = 0;
+    i = 0;
+    clickSpaceButton = false;
+    clickMButton = false;
+
 
     IMAGES_STAND_ON_THE_SPOT = [
         './img/1.Sharkie/1.IDLE/1.png',
@@ -113,6 +117,10 @@ class Character extends MovableObject {
 
     ];
 
+    /**
+    * represents the character
+    * @constructor
+    */
     constructor() {
         super().loadImage(this.IMAGES_STAND_ON_THE_SPOT[0]);
         this.loadImages();
@@ -121,13 +129,13 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => this.move(), 1000 / 60);
-        setInterval(() => this.playCharacterAnimation(), 200);
-        setInterval(() => {
-            this.throwBubble();
-            this.throwPoissonBubble();
-        }, 200);
+        setInterval(() => this.playCharacterAnimation(), 100);
+
     }
 
+    /**
+    * save all images in a image cache
+    */
     loadImages() {
         super.loadImages(this.IMAGES_SWIMMING);
         super.loadImages(this.IMAGES_STAND_ON_THE_SPOT);
@@ -139,6 +147,9 @@ class Character extends MovableObject {
         super.loadImages(this.IMAGES_STAND_ON_THE_SPOT_LONG);
     }
 
+    /**
+     * Move the character based on keyboard input and updates camera position
+     */
     move() {
         if (this.canMoveRight()) {
             this.moveRight();
@@ -155,20 +166,23 @@ class Character extends MovableObject {
         world.camera_x = -this.x + 100;
     }
 
+     /**
+     * play the animation of the character 
+     */
     playCharacterAnimation() {
         if (this.isDead()) {
             this.playDeadAnimation();
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             this.standTime = 0;
-        } else if ((world.keyboard.SPACE || world.keyboard.M) && !this.canThrowBubble()) {
+        } else if ((world.keyboard.SPACE || world.keyboard.M) && this.bubbleCount == 0) {
             this.playAnimation(this.IMAGES_ATTACK_WITHOUT_BUBBLES);
             this.standTime = 0;
-        } else if (world.keyboard.SPACE) {
-            this.playAnimation(this.IMAGES_ATTACK_WITH_BUBBLES);
+        } else if ((((world.keyboard.SPACE || this.clickSpaceButton)) || (world.keyboard.M && this.poissonCount == 0)) && this.canThrowBubble()) {
+            this.playBubbleAnimation();
             this.standTime = 0;
-        } else if (world.keyboard.M && this.poissonCount > 0) {
-            this.playAnimation(this.IMAGES_ATTACK_WITH_POISSON_BUBBLES);
+        } else if ((world.keyboard.M || this.clickMButton) && this.canThrowPoissonBubble()) {
+            this.playPoissonBubbleAnimation();
             this.standTime = 0;
         } else if (world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN) {
             this.playAnimation(this.IMAGES_SWIMMING);
@@ -181,22 +195,56 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * play the death animation of the character and
+     * show the losing screen after a specific time
+     */
     playDeadAnimation() {
         this.playAnimation(this.IMAGES_DEAD);
-        this.standTime = 0;
         this.losingScreenCounter++;
         if (this.losingScreenCounter > 11) {
             showLosingScreen();
         }
     }
 
-    hit(){
+    /**
+     * play the bubble animation of the character 
+     * After this the bubble is thrown
+     */
+    playBubbleAnimation() {
+        this.clickSpaceButton = true;
+        this.loadImage(this.IMAGES_ATTACK_WITH_BUBBLES[this.i]);
+        this.i++;
+        if (this.i > 7) {
+            this.throwBubble();
+            this.i = 0;
+            this.clickSpaceButton = false;
+        }
+
+    }
+
+    /**
+     * play the poisson bubble animation of the character 
+     * After this the poisson bubble is thrown
+     */
+    playPoissonBubbleAnimation() {
+        this.clickMButton = true;
+        this.loadImage(this.IMAGES_ATTACK_WITH_POISSON_BUBBLES[this.i]);
+        if (this.i > 6) {
+            this.throwPoissonBubble();
+            this.i = 0;
+            this.clickMButton = false;
+        }
+        this.i++;
+    }
+
+    hit() {
         audios.hurt_sound.play();
         super.hit();
     }
 
     isSleep() {
-        return this.standTime > 45;
+        return this.standTime > 100;
     }
 
     canMoveLeft() {
@@ -225,59 +273,65 @@ class Character extends MovableObject {
         super.moveRight();
     }
 
+    /**
+     * a new poisson bubble is created and is trown on the left or right side 
+     */
     throwPoissonBubble() {
-        if (world.keyboard.M && this.canThrowPoissonBubble()) {
-            if (this.otherDirection == false) {
-                this.throwPoissonBubbleRight();
-            } else {
-                this.throwPoissonBubbleLeft();
-            }
-            this.lastThrowBubbleTime = new Date().getTime();
-            this.bubbleCount--;
-            this.poissonCount--;
+        if (this.otherDirection == false) {
+            this.throwPoissonBubbleRight();
+        } else {
+            this.throwPoissonBubbleLeft();
         }
+        this.lastThrowBubbleTime = new Date().getTime();
+        this.bubbleCount--;
+        this.poissonCount--;
     }
 
+    /**
+     * a new bubble is created and is trown on the left or right side 
+     */
     throwBubble() {
-        if (world.keyboard.SPACE && this.canThrowBubble()) {
-            if (this.otherDirection == false) {
-                this.throwBubbleRight();
-            } else {
-                this.throwBubbleLeft();
-            }
-            this.lastThrowBubbleTime = new Date().getTime();
-            this.bubbleCount--;
+        if (this.otherDirection == false) {
+            this.throwBubbleRight();
+        } else {
+            this.throwBubbleLeft();
         }
+        this.lastThrowBubbleTime = new Date().getTime();
+        this.bubbleCount--;
     }
 
     throwBubbleRight() {
-        let bubble = new Bubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
+        let bubble = new Bubble(this.x + this.width + this.xRightCorrection + 10, this.y + 0.5 * this.height);
         bubble.noDammage = false;
         world.level.bubbles.push(bubble);
         bubble.throwRight();
     }
 
     throwBubbleLeft() {
-        let bubble = new Bubble(this.x, this.y + 0.5 * this.height);
+        let bubble = new Bubble(this.x - 10, this.y + 0.5 * this.height);
         bubble.noDammage = false;
         world.level.bubbles.push(bubble);
         bubble.throwLeft();
     }
 
     throwPoissonBubbleRight() {
-        let bubble = new PoissonBubble(this.x + this.width + this.xRightCorrection, this.y + 0.5 * this.height);
+        let bubble = new PoissonBubble(this.x + this.width + this.xRightCorrection + 10, this.y + 0.5 * this.height);
         bubble.noDammage = false;
         world.level.bubbles.push(bubble);
         bubble.throwRight();
     }
 
     throwPoissonBubbleLeft() {
-        let bubble = new PoissonBubble(this.x, this.y + 0.5 * this.height);
+        let bubble = new PoissonBubble(this.x - 10, this.y + 0.5 * this.height);
         bubble.noDammage = false;
         world.level.bubbles.push(bubble);
         bubble.throwLeft();
     }
 
+     /**
+     * a bubble can only throw after a specific time 
+     * and the character must collected the bubble und don´t be hurt
+     */
     canThrowBubble() {
         let timepassed = new Date().getTime() - this.lastThrowBubbleTime;
         timepassed = timepassed / 1000 // difference in second

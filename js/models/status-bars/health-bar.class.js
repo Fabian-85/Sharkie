@@ -5,6 +5,10 @@ class HealthBar extends DrawableObject {
     width = 50;
     height = 50;
 
+    /**
+     * represents a hearth for a status bar
+     * @constructor
+     */
     constructor() {
         super().loadImage('./img/4. Marcadores/2_icons/icon_hearth.png');
     }

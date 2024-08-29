@@ -9,6 +9,11 @@ class Coin extends MovableObject {
         './img/4. Marcadores/1. Coins/4.png',
     ];
 
+    /**
+     * represents a coin object
+     * generate randomly a coin in the world
+     * @constructor
+     */
     constructor() {
         super().loadImage('./img/4. Marcadores/1. Coins/1.png');
         this.loadImages(this.IMAGES);
@@ -17,6 +22,9 @@ class Coin extends MovableObject {
         this.animate();
     }
 
+    /**
+     * play animation of coin
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES);

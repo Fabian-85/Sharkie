@@ -8,11 +8,19 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
 
+     /**
+     * load a single image from the specified path .
+     * @param {string} path - The file path of the image to load
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
+     /**
+     * save images into a image cache  
+     * @param {array} arr - An array of file paths
+     */
     loadImages(arr) {
         arr.forEach(path => {
             let img = new Image();
@@ -21,6 +29,10 @@ class DrawableObject {
         });
     }
 
+    /**
+     * play animation using the images in the array.
+     * @param {array} arr - An array of file paths for the images that make up the animation.
+     */
     playAnimation(arr) {
         let i = this.currentImage % arr.length;
         let path = arr[i];
@@ -28,10 +40,16 @@ class DrawableObject {
         this.currentImage++;
     }
 
+    /**
+     * draw the current image into the canvas  
+     */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+   /**
+     * draw a border around the drawable object 
+     */
     drawBorder(ctx) {
         ctx.beginPath();
         if (this instanceof Character) {
