@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div id="touchableButtons" class="touchableButtons d-none">
+    <div oncontextmenu="return false;" id="touchableButtons" class="prevent-select touchableButtons d-none">
         <div class="moveButtons">
             <button id="left">&#10140;</button>
             <button id="top">&#10140;</button>
@@ -78,6 +78,7 @@
             <button onclick="showControlling()" class="button" type="button">Controlling</button>
             <button id="configureSoundsButton" onclick="configureSounds()" class="redButton" type="button">Audio:
                 OFF</button>
+                <button class="button" type="button">  <a href="./impressum.html"> Impressum</a> </button>
         </div>
     </div>
 
@@ -97,7 +98,7 @@
     </div>
 
     <div id="turnScreeenContainer" class="turnScreen d-none">
-       PLEASE TURN YOUR SCREEN
+        PLEASE TURN YOUR SCREEN
     </div>
 
 </body>

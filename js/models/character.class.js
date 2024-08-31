@@ -10,8 +10,8 @@ class Character extends MovableObject {
     xRightCorrection = -44;
     yUpCorrection = 120;
     yBottomCorrection = -60;
-    bubbleCount = 100;
-    poissonCount = 100;
+    bubbleCount = 0;
+    poissonCount = 0;
     coinCount = 0;
     lastThrowBubbleTime = 0;
     standTime = 0;

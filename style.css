@@ -10,6 +10,10 @@
     color: white;
 }
 
+a{
+    text-decoration: none;
+}
+
 @media only screen and (max-width:710px) {
     canvas {
         width: 100vw;
@@ -18,7 +22,7 @@
 
 @media only screen and (max-height:480px) {
     canvas {
-        height: 100vh;
+        height: 99vh;
     }
 }
 
@@ -28,18 +32,29 @@
     }
 }
 
-@media (max-height:430px) {
+@media (max-height:500px) {
     .button, .redButton, .greenButton {
         height: 70px !important;
     }
 }
 
-@media (max-height:390px) {
+@media (max-height:470px) {
     .button, .redButton, .greenButton {
         font-size: 30px !important;
         height: 60px !important;
     }
 }
+
+@media (max-height:430px) {
+     .keyboard-layout{
+        transform: translateY(-25px);
+     }
+    .buttons {
+        transform: translateY(-25px);
+    }
+}
+
+ 
 
 canvas {
     background-color: black;
@@ -163,6 +178,7 @@ h1 {
 }
 
 .winningscreen {
+    z-index:5;
     position: absolute;
     top: 0;
     left: 0;
@@ -190,6 +206,7 @@ h1 {
 }
 
 .losingscreen {
+    z-index:5;
     transform: translateX(100%);
     transition: all 1s ease-in-out;
     position: absolute;
@@ -218,6 +235,7 @@ h1 {
 
 .touchableButtons {
     position: absolute;
+    z-index:1;
     bottom: 45px;
     display: flex;
     justify-content: space-between;
@@ -251,6 +269,12 @@ h1 {
     transform: rotate(180deg);
 }
 
+.prevent-select {
+    -webkit-user-select: none;  
+    -ms-user-select: none;  
+    user-select: none;  
+  }
+
 .turnScreen{
     position: absolute;
     top:0;
@@ -263,4 +287,19 @@ h1 {
     align-items: center;
     background-color: rgba(14, 65, 167, 0.9);
     font-size: 80px;
+}
+
+.impressum{
+    margin:20px;
+}
+
+.impressum h1{
+    font-size:40px;
+}
+
+.closeImpressum{
+    font-size: 25px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }
